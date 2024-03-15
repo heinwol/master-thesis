@@ -3,5 +3,9 @@
 
 #show: template
 
+// Document begins!
+
 = Lorem ipsum
 #lorem(30)
+
+Я думаю, что все это очень хорошо

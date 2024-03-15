@@ -3,7 +3,7 @@
 
   // Set the basic text properties.
   set text(
-    font: "Liberation Sans",
+    font: "Liberation Serif",
     lang: "ru",
     size: 12pt,
     // fallback: true,
@@ -12,8 +12,13 @@
 
   // Set the basic page properties.
   set page(
-    number-align: right, margin: 2.5cm
+    paper: "a4",
+    number-align: center,
+    margin: (top: 10mm, bottom: 10mm, left: 30mm, right: 10mm),
+    numbering: "1",
+    // footer: rect(fill: aqua)[Footer],
   )
+  counter(page).update(2)
 
   // Set the basic paragraph properties.
   set par(leading: 1.25em, justify: true, first-line-indent: 1.25em)
