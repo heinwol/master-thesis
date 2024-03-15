@@ -1,3 +1,4 @@
 .direnv
 result*
 typst/main.pdf
+*.pdf

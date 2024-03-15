@@ -37,7 +37,7 @@
 
         fontPaths = [
           # Add paths to fonts here
-          # "${pkgs.roboto}/share/fonts/truetype"
+          "${pkgs.liberation_ttf}/share/fonts/truetype"
         ];
 
         virtualPaths = [
@@ -94,5 +94,7 @@
           # pkgs.typstfmt
         ];
       };
+
+      pkgs = pkgs;
     });
 }
