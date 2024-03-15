@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    typstfmt = {
+      url = "github:jeffa5/typstfmt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
 
     # Example of downloading icons from a non-flake source
@@ -22,6 +27,7 @@
     inputs @ { nixpkgs
     , typix
     , flake-utils
+    , typstfmt
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -91,9 +97,10 @@
           # build-script
           watch-script
           # More packages can be added here, like typstfmt
-          # pkgs.typstfmt
+          # typstfmt.packages.${system}.typstfmt
+          pkgs.typstfmt
         ];
-      };
+      };   
 
       pkgs = pkgs;
     });
