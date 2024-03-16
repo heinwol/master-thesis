@@ -1,3 +1,8 @@
+#import "@preview/ctheorems:1.1.2": *
+
+#let theorem = thmbox("theorem", "Теорема", fill: rgb("#eeffee"))
+#let proof = thmproof("proof", "Доказательство")
+
 #let template(body) = {
   set document(author: "dds", title: "ds")
 
@@ -40,6 +45,8 @@
   // } else {
   //   it
   // }
+
+  set heading(numbering: "1.1.")
 
   body
 }
