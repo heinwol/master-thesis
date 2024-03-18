@@ -1,6 +1,12 @@
-#import "@preview/ctheorems:1.1.2": *
+#import "@local/ctheorems:1.1.2": *
 
-#let theorem = thmbox("theorem", "Теорема", fill: rgb("#eeffee"))
+#let theorem = thmbox(
+  "theorem",
+  "Теорема",
+  fill: rgb("#eeffee"),
+  supplement: none,
+  //
+)
 #let proof = thmproof("proof", "Доказательство")
 
 #let template(body) = {
