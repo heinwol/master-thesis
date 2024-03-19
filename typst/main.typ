@@ -16,7 +16,7 @@
   fdfd
 ] <dsdd>
 
-В @dsdd сказано @dsdd ляля
+В s@dsdd сказано @dsdd ляля
 
 #proof[
   - аваав

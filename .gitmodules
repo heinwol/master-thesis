@@ -1,3 +1,4 @@
 [submodule "typst/typst-packages"]
 	path = typst/typst-packages
 	url = https://github.com/heinwol/typst-packages
+	branch = main
