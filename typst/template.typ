@@ -1,4 +1,4 @@
-#import "@local/ctheorems:1.1.2": *
+#import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
 
 #let theorem = thmbox(
   "theorem",

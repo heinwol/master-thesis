@@ -96,11 +96,10 @@
           # See https://github.com/loqusion/typix/issues/2
           # build-script
           watch-script
-          # More packages can be added here, like typstfmt
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
         ];
-      };   
+      };
 
       pkgs = pkgs;
     });

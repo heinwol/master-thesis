@@ -27,7 +27,7 @@
 
 #figure(
   align(
-    center,   
+    center,
   )[#table(
       columns: 2,
       align: (col, row) => (auto, auto,).at(col),
