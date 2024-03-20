@@ -16,7 +16,7 @@
   fdfd
 ] <dsdd>
 
-В s@dsdd сказано @dsdd ляля
+В @dsdd сказано s@dsdd ляля
 
 #proof[
   - аваав
@@ -28,11 +28,26 @@
 #figure(
   align(
     center,
-  )[#table(
+  )[#grid(
       columns: 2,
       align: (col, row) => (auto, auto,).at(col),
-      inset: 6pt,
+      inset: 20pt,
       [$ f (q) = min {R^prime dot.circle (q times.circle bold(1)) , med R} $],
       [\(1.2)],
     )],
 )
+// #show terms: it => { it.children.map(item => { repr(item) }) }
+
+#show terms: it => {
+  for item in it.children {
+    definition(item.term, item.description)
+  }
+}
+/ Хороший человек: молодец
+/ Нехороший человек: редиска
+
+// #definition("lala", "baba")
+// #definition("lalas", "babas")
+аывы
+
+/ ЛЯЛЯ: jds

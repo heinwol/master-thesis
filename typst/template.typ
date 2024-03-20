@@ -8,6 +8,17 @@
   //
 )
 #let proof = thmproof("proof", "Доказательство")
+#let definition = thmbox(
+  "definition",
+  "Определение",
+  base_level: 1, // take only the first level from the base
+  stroke: rgb("#68ff68") + 1pt,
+  // fill: rgb("#eeffee"),
+  supplement: none,
+  inset: (top: 0.4em, left: 1em, right: 0em, bottom: 0.2em),
+  padding: (top: 0em, bottom: 0em),
+  // separator: none, //[#h(0.1em):#h(0.2em)],
+)
 
 #let template(body) = {
   set document(author: "dds", title: "ds")
