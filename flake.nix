@@ -15,7 +15,7 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-
+    sponge-networks.url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks?ref=HEAD";
     # Example of downloading icons from a non-flake source
     # font-awesome = {
     #   url = "github:FortAwesome/Font-Awesome";
@@ -28,14 +28,16 @@
     , typix
     , flake-utils
     , typstfmt
+    , sponge-networks
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
       inherit (pkgs) lib;
-
       typixLib = typix.lib.${system};
+
+      traceit = x: lib.trace x x;
 
       src = typixLib.cleanTypstSource ./typst;
       commonArgs = {
@@ -71,6 +73,19 @@
 
       # Watch a project and recompile on changes
       watch-script = typixLib.watchTypstProject commonArgs;
+
+      shell = typixLib.devShell {
+        inherit (commonArgs) fontPaths virtualPaths;
+        packages = [
+          # WARNING: Don't run `typst-build` directly, instead use `nix run .#build`
+          # See https://github.com/loqusion/typix/issues/2
+          # build-script
+          watch-script
+          # typstfmt.packages.${system}.typstfmt
+          pkgs.typstfmt
+          sponge-networks.packages.${system}.default
+        ];
+      };
     in
     {
       checks = {
@@ -89,16 +104,8 @@
         };
       };
 
-      devShells.default = typixLib.devShell {
-        inherit (commonArgs) fontPaths virtualPaths;
-        packages = [
-          # WARNING: Don't run `typst-build` directly, instead use `nix run .#build`
-          # See https://github.com/loqusion/typix/issues/2
-          # build-script
-          watch-script
-          # typstfmt.packages.${system}.typstfmt
-          pkgs.typstfmt
-        ];
+      devShells = {
+        default = shell;
       };
 
       pkgs = pkgs;
