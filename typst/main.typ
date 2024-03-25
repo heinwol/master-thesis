@@ -3,11 +3,25 @@
 #show: thmrules
 #show: template
 
+////////////////////////
 // Document begins!
+////////////////////////
 
-= Lorem ipsum
+#outline(title: [Содержание])
 
-#lorem(30)
+= Введение <nonum>
+
+eweewew
+
+eweewew
+
+= Введение2 <nonum>
+
+dsaarfera
+
+frefrae
+
+= Введение3 <nonum>
 
 Я думаю, что все это очень хорошо $cal(A) := { x in RR | x "натуральное" }; angle.right.dot$
 
@@ -16,7 +30,7 @@
   fdfd
 ] <dsdd>
 
-В @dsdd сказано s@dsdd ляля
+В @dsdd сказано s@dsdd ляля и введение
 
 #proof[
   - аваав
@@ -36,18 +50,3 @@
       [\(1.2)],
     )],
 )
-// #show terms: it => { it.children.map(item => { repr(item) }) }
-
-#show terms: it => {
-  for item in it.children {
-    definition(item.term, item.description)
-  }
-}
-/ Хороший человек: молодец
-/ Нехороший человек: редиска
-
-// #definition("lala", "baba")
-// #definition("lalas", "babas")
-аывы
-
-/ ЛЯЛЯ: jds

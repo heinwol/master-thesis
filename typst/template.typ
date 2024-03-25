@@ -20,6 +20,17 @@
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
 
+#let with(func: function, ..k, content: content) = {
+  set func(..k)
+  content
+}
+
+// #show terms: it => {
+//   for item in it.children {
+//     definition(item.term, item.description)
+//   }
+// }
+
 #let template(body) = {
   set document(author: "dds", title: "ds")
 
@@ -43,7 +54,12 @@
   counter(page).update(2)
 
   // Set the basic paragraph properties.
-  set par(leading: 1.25em, justify: true, first-line-indent: 1.25em)
+  set par(
+    leading: 1.25em,
+    justify: true,
+    first-line-indent: 1.25em,
+    // hanging-indent: 1.25em,
+  )
 
   // block spacing
   // set block(spacing: 3.65em,)
@@ -52,18 +68,10 @@
   set enum(indent: 0.5cm)
   set list(indent: 0.5cm)
 
-  // Global show rules for links:
-  //  - Show links to websites in blue
-  //  - Underline links to websites
-  //  - Show other links as-is
-  // show link: it => if type(it.dest) == str {
-  // set text(fill: ugent-blue)
-  //   underline(it)
-  // } else {
-  //   it
-  // }
-
   set heading(numbering: "1.1.")
 
+  // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
+  show "¬": h(1.25em)
+  show <nonum>: set heading(numbering: none)
   body
 }
