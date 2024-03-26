@@ -69,9 +69,12 @@
   set list(indent: 0.5cm)
 
   set heading(numbering: "1.1.")
+  show heading: set align(center)
+  show heading.where(level: 1): it => {pagebreak(); it}
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
   show "¬": h(1.25em)
+
   show <nonum>: set heading(numbering: none)
   body
 }
