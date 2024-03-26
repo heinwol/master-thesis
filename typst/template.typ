@@ -15,7 +15,7 @@
   stroke: rgb("#68ff68") + 1pt,
   // fill: rgb("#eeffee"),
   supplement: none,
-  inset: (top: 0.4em, left: 1em, right: 0em, bottom: 0.2em),
+  inset: (top: 0.4em, left: 1em, right: 0em, bottom: 0.5em),
   padding: (top: 0em, bottom: 0em),
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
@@ -70,7 +70,12 @@
 
   set heading(numbering: "1.1.")
   show heading: set align(center)
+  show heading: it => {it; v(1em)}
   show heading.where(level: 1): it => { pagebreak(); it }
+
+  set math.equation(numbering: num =>
+    "(" + (counter(heading).get() + (num,)).map(str).join(".") + ")"
+  )
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
   show "¬": h(1.25em)
