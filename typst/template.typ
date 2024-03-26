@@ -15,7 +15,7 @@
   stroke: rgb("#68ff68") + 1pt,
   // fill: rgb("#eeffee"),
   supplement: none,
-  inset: (top: 0.4em, left: 1em, right: 0em, bottom: 0.5em),
+  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
   padding: (top: 0em, bottom: 0em),
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
@@ -80,6 +80,7 @@
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
   show "¬": h(1.25em)
 
-  show <nonum>: set heading(numbering: none)
+  show <nonum-head>: set heading(numbering: none)
+  show <nonum-eq>: set math.equation(numbering: none)
   body
 }
