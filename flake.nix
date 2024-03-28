@@ -74,6 +74,11 @@
       # Watch a project and recompile on changes
       watch-script = typixLib.watchTypstProject commonArgs;
 
+      sn = sponge-networks.packages.${system}.default;
+      sn-with-pkgs = sn.dependencyEnv.withPackages (ps: [
+        sn
+        ps.typer
+      ]);
       shell = typixLib.devShell {
         inherit (commonArgs) fontPaths virtualPaths;
         packages = [
@@ -83,7 +88,7 @@
           watch-script
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
-          sponge-networks.packages.${system}.default
+          sn-with-pkgs
         ];
       };
     in
