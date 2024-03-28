@@ -83,6 +83,6 @@
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)
-  
+
   body
 }
