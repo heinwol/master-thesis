@@ -14,6 +14,6 @@ tasks:
         | $in.name
         | each { path parse }
         | where extension == docx
-        | each { pandoc --wrap=none $"($in.parent)/($in.stem).($in.extension)" -o $"~/Documents/work/12_sem/thesis/ignored/($in.stem).typ"}
+        | each { pandoc --wrap=none $"($in.parent)/($in.stem).($in.extension)" -o $"($env.HOME)/Documents/work/12_sem/thesis/ignored/($in.stem).typ"}
     cmds:
       - nu -c '{{.convert_command}}'
