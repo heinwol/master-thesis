@@ -76,11 +76,13 @@
   set math.equation(numbering: num =>
     "(" + (counter(heading).get() + (num,)).map(str).join(".") + ")"
   )
+  set math.equation(supplement: none)
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
-  show "¬": h(1.25em)
+  show regex("^!"): context h(par.leading)
 
-  show <nonum-head>: set heading(numbering: none)
-  show <nonum-eq>: set math.equation(numbering: none)
+  show <nonum>: set heading(numbering: none)
+  show <nonum>: set math.equation(numbering: none)
+  
   body
 }
