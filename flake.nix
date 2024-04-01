@@ -89,7 +89,14 @@
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
           sn-with-pkgs
-        ];
+
+        ]
+        ++ (with pkgs; [
+          libnotify
+          nushell
+          just
+          # libsForQt5.kdialog
+        ]);
       };
     in
     {
