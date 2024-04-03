@@ -4,3 +4,4 @@ typst/main.pdf
 *.pdf
 ignored
 /assets/images/generated
+.nix-env

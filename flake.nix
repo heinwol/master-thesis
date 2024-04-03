@@ -107,7 +107,10 @@
         inherit build-drv build-script watch-script;
       };
 
-      packages.default = build-drv;
+      packages = {
+        default = build-drv;
+        python-env = sn-with-pkgs;
+      };
 
       apps = rec {
         default = watch;

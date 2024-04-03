@@ -9,9 +9,22 @@ convert-reports:
 
 gen-assets:
   #!/usr/bin/env nu
-    let res = (python scripts/gen_images.py | complete)
-    if $res.exit_code == 0 {
-      notify-send 'task: assets: done'
-    } else {
-      notify-send 'task: assets: failed'
-    }
+  let res = (python scripts/gen_images.py | complete)
+  if $res.exit_code == 0 {
+    notify-send 'task: assets: DONE'
+  } else {
+    notify-send 'task: assets: FAILED'
+  }
+
+gen-assets-dev:
+  #!/usr/bin/env nu
+  let python = "~/Documents/work/ipu/sponge_networks/.nix-env/bin/python"
+  let res = (run-external $python scripts/gen_images.py | complete)
+  if $res.exit_code == 0 {
+    notify-send 'task: assets: DONE'
+  } else {
+    notify-send 'task: assets: FAILED'
+  }
+
+build-python-env:
+  nix build .#python-env --out-link .nix-env

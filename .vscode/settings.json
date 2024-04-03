@@ -1,0 +1,9 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.nix-env/bin/python",
+    "python.analysis.exclude": [
+        "submodules",
+        ".direnv",
+        "result",
+        ".nix-env"
+    ],
+}
