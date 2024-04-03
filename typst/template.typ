@@ -13,7 +13,7 @@
   "Определение",
   base_level: 1, // take only the first level from the base
   stroke: rgb("#68ff68") + 1pt,
-  // fill: rgb("#eeffee"),
+  fill: rgb("#eeffee"),
   supplement: none,
   inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
   padding: (top: 0em, bottom: 0em),
