@@ -15,7 +15,10 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
-    sponge-networks.url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks?ref=HEAD";
+    sponge-networks = {
+      url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks?ref=refs/heads/main";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Example of downloading icons from a non-flake source
     # font-awesome = {
     #   url = "github:FortAwesome/Font-Awesome";

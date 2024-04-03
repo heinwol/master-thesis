@@ -1,12 +1,13 @@
 import os
 from typing import Annotated, Any, Optional
+from typing_extensions import override
 import sponge_networks as sn
 import typer
 import networkx as nx
 import numpy as np
 from pathlib import Path
 
-basic_network = sn.ResourceNetwork(
+basic_network = sn.ResourceNetwork[int](
     nx.from_numpy_array(
         np.array(
             [
@@ -20,8 +21,15 @@ basic_network = sn.ResourceNetwork(
 )
 
 
-def with_red_weights(G: nx.DiGraph) -> None:
-    G.graph["edge"]["fontcolor"] = "red"
+class WithEdges(sn.display.DrawableGraphWithContext[sn.display.JustDrawableContext]):
+    @override
+    def property_setter(self) -> None:
+        G = self.drawing_graph
+        G.graph["edge"]["fontcolor"] = "red"
+        G.graph["edge"]["fontsize"] = self.display_context.scale * 10
+
+
+# def with_red_weights(G: nx.DiGraph) -> None:
 
 
 def write_img(p: Path, data: Any) -> None:
@@ -32,7 +40,7 @@ def write_img(p: Path, data: Any) -> None:
 
 
 def create_all_images(images_folder: Path) -> None:
-    img = basic_network.plot(scale=1.2, prop_setter=with_red_weights)
+    img = basic_network.plot(scale=1.2, prop_setter=WithEdges)
     write_img(images_folder.joinpath("basic_network/plot.svg"), img.data)
 
 
@@ -42,8 +50,8 @@ def main(
         typer.Argument(help="where to write"),
     ] = None
 ) -> None:
-    wd = os.environ.get("WORKDIR") or "./assets/images"
-    images_folder = images_folder or Path(wd)
+    wd = Path(os.environ.get("WORKDIR") or ".") / "assets/images/generated"
+    images_folder = images_folder or wd
     images_folder.mkdir(parents=True, exist_ok=True)
     create_all_images(images_folder)
 
