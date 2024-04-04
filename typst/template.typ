@@ -32,7 +32,7 @@
 // }
 
 #let template(body) = {
-  set document(author: "dds", title: "ds")
+  // set document(author: "dds", title: "ds")
 
   // Set the basic text properties.
   set text(
@@ -77,6 +77,10 @@
     "(" + (counter(heading).get() + (num,)).map(str).join(".") + ")"
   )
   set math.equation(supplement: none)
+
+
+  show figure.caption: set text(size: 0.8em)
+  show figure.caption: set par(leading: 1em)
 
   // set figure(supplement: "рис.")
 
