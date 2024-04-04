@@ -51,10 +51,8 @@ def create_all_images(images_folder: Path) -> None:
 
     img1_1 = basic_network.plot(scale=1.2, prop_setter=WithEdges)
     write_to("basic_network/plot.svg", img1_1.data)
-    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=30)
-    sim_slc = sim1.sliced[6]
-
-    img1_2 = basic_network.plot_with_states(sim_slc)[0]
+    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
+    img1_2 = basic_network.plot_with_states(sim1, max_node_width=0.3, scale=1.1)[0]
     write_to("basic_network/sim.svg", img1_2.data)
 
 
@@ -64,7 +62,7 @@ def main(
         typer.Argument(help="where to write"),
     ] = None
 ) -> None:
-    wd = Path(os.environ.get("WORKDIR") or ".") / "assets/images/generated"
+    wd = Path(os.environ.get("WORKDIR") or ".") / "assets/generated"
     images_folder = images_folder or wd
     images_folder.mkdir(parents=True, exist_ok=True)
     create_all_images(images_folder)

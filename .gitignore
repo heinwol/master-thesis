@@ -3,5 +3,5 @@ result*
 typst/main.pdf
 *.pdf
 ignored
-/assets/images/generated
+/assets/generated
 .nix-env
