@@ -78,6 +78,8 @@
   )
   set math.equation(supplement: none)
 
+  // set figure(supplement: "рис.")
+
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
   show regex("^!"): context h(par.leading)
 
