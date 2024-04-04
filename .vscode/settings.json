@@ -6,4 +6,26 @@
         "result",
         ".nix-env"
     ],
+    "cSpell.enabled": true,
+    "cSpell.language": "ru,en",
+    "cSpell.enableFiletypes": [
+        "typst"
+    ],
+    "cSpell.diagnosticLevel": "Information",
+    "cSpell.maxNumberOfProblems": 50,
+    "cSpell.words": [
+        "delim",
+        "Dynkin",
+        "forall",
+        "gost",
+        "Kuznetsov",
+        "linebreak",
+        "nonum",
+        "pagebreak",
+        "thmrules",
+        "Zhilyakova",
+        "графовая",
+        "многоагентные",
+        "эйлеровых"
+    ],
 }
