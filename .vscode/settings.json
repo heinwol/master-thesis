@@ -14,6 +14,7 @@
     "cSpell.diagnosticLevel": "Information",
     "cSpell.maxNumberOfProblems": 50,
     "cSpell.words": [
+        "ctheorems",
         "delim",
         "Dynkin",
         "forall",
@@ -22,7 +23,10 @@
         "linebreak",
         "nonum",
         "pagebreak",
+        "thmbox",
+        "thmproof",
         "thmrules",
+        "typst",
         "Zhilyakova",
         "графовая",
         "многоагентные",
