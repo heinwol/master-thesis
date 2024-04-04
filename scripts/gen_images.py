@@ -51,14 +51,10 @@ def create_all_images(images_folder: Path) -> None:
 
     img1_1 = basic_network.plot(scale=1.2, prop_setter=WithEdges)
     write_to("basic_network/plot.svg", img1_1.data)
-    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=3)
+    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=30)
+    sim_slc = sim1.sliced[6]
 
-    dr1 = sn.display.SimulationWithChangingWidthDrawable.new(
-        basic_network._G,
-        sim=sim1,
-        scale=1.1,
-    )
-    img1_2 = dr1._plot_simulation_frame(sim1[0])
+    img1_2 = basic_network.plot_with_states(sim_slc)[0]
     write_to("basic_network/sim.svg", img1_2.data)
 
 

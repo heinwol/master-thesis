@@ -16,7 +16,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     sponge-networks = {
-      url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks?ref=refs/heads/main";
+      url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     # Example of downloading icons from a non-flake source
@@ -91,10 +91,10 @@
           watch-script
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
-          sn-with-pkgs
-
         ]
         ++ (with pkgs; [
+          sn-with-pkgs
+          graphviz
           libnotify
           nushell
           just
