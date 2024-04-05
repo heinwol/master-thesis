@@ -44,7 +44,7 @@ stop_network = sn.ResourceNetworkGreedy[int](
 some_sponge_network = sn.build_sponge_network(
     grid_type="grid_2d",
     n_cols=4,
-    n_rows=3,
+    n_rows=2,
     layout={
         "weights_horizontal": 3,
         "weights_up_down": 5,
@@ -53,6 +53,21 @@ some_sponge_network = sn.build_sponge_network(
         "weights_sink_edge": 1,
         "generate_sinks": True,
     },
+    visual_sink_edge_length=0.7,
+)
+some_sponge_network_without_sinks = sn.build_sponge_network(
+    grid_type="grid_2d",
+    n_cols=4,
+    n_rows=2,
+    layout={
+        "weights_horizontal": 3,
+        "weights_up_down": 5,
+        "weights_down_up": 1,
+        "weights_loop": 1,
+        "weights_sink_edge": 1,
+        "generate_sinks": False,
+    },
+    visual_sink_edge_length=0.7,
 )
 
 
@@ -93,13 +108,18 @@ def create_all_images(images_folder: Path) -> None:
         write_to("stop_network/sim2.svg", imgs[-1].data)
 
     def gen_3() -> None:
-        img = some_sponge_network.resource_network.plot()
+        img = some_sponge_network.resource_network.plot(scale=1.4)
         write_to("some_sponge_network/plot.svg", img.data)
+
+    def gen_4() -> None:
+        img = some_sponge_network_without_sinks.resource_network.plot(scale=1.4)
+        write_to("some_sponge_network_without_sinks/plot.svg", img.data)
 
     do_multiple(
         gen_1,
         gen_2,
         gen_3,
+        gen_4,
     )()
 
 
