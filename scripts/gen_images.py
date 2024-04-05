@@ -41,6 +41,20 @@ stop_network = sn.ResourceNetworkGreedy[int](
     )
 )
 
+some_sponge_network = sn.build_sponge_network(
+    grid_type="grid_2d",
+    n_cols=4,
+    n_rows=3,
+    layout={
+        "weights_horizontal": 3,
+        "weights_up_down": 5,
+        "weights_down_up": 1,
+        "weights_loop": 1,
+        "weights_sink_edge": 1,
+        "generate_sinks": True,
+    },
+)
+
 
 class WithEdges(sn.display.DrawableGraphWithContext[sn.display.JustDrawableContext]):
     @override
@@ -78,9 +92,14 @@ def create_all_images(images_folder: Path) -> None:
         write_to("stop_network/sim1.svg", imgs[0].data)
         write_to("stop_network/sim2.svg", imgs[-1].data)
 
+    def gen_3() -> None:
+        img = some_sponge_network.resource_network.plot()
+        write_to("some_sponge_network/plot.svg", img.data)
+
     do_multiple(
         gen_1,
         gen_2,
+        gen_3,
     )()
 
 

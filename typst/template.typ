@@ -72,9 +72,11 @@
   show heading: set align(center)
   show heading: it => {it; v(1em)}
   show heading.where(level: 1): it => { pagebreak(); it }
+  show heading.where(level: 3): set heading(numbering: none, outlined: false)
 
-  set math.equation(numbering: num =>
-    "(" + (counter(heading).get() + (num,)).map(str).join(".") + ")"
+  set math.equation(
+    numbering: num =>
+    "(" + ((counter(heading).get().at(0),) + (num,)).map(str).join(".") + ")"
   )
   set math.equation(supplement: none)
 
