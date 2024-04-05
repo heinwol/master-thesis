@@ -9,6 +9,7 @@ sys.path.append(
 from typing import Annotated, Any, Optional
 from typing_extensions import override
 import sponge_networks as sn
+from sponge_networks.utils.utils import partial, do_multiple
 import typer
 import networkx as nx
 import numpy as np
@@ -20,6 +21,20 @@ basic_network = sn.ResourceNetwork[int](
                 [0, 3, 1],
                 [4, 1, 0],
                 [2, 2, 0],
+            ]
+        ),
+        create_using=nx.DiGraph,
+    )
+)
+
+stop_network = sn.ResourceNetworkGreedy[int](
+    nx.from_numpy_array(
+        np.array(
+            [
+                [2, 0, 1, 0],
+                [0, 3, 0, 4],
+                [2, 2, 2, 5],
+                [2, 3, 3, 3],
             ]
         ),
         create_using=nx.DiGraph,
@@ -47,13 +62,26 @@ def write_img(images_folder: Path, concrete_path: Path | str, data: Any) -> None
 
 
 def create_all_images(images_folder: Path) -> None:
-    write_to = sn.utils.utils.partial(write_img, images_folder)
+    write_to = partial(write_img, images_folder)
 
-    img1_1 = basic_network.plot(scale=1.2, prop_setter=WithEdges)
-    write_to("basic_network/plot.svg", img1_1.data)
-    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
-    img1_2 = basic_network.plot_with_states(sim1, max_node_width=0.3, scale=1.1)[0]
-    write_to("basic_network/sim.svg", img1_2.data)
+    def gen_1() -> None:
+        img1 = basic_network.plot(scale=1.2, prop_setter=WithEdges)
+        write_to("basic_network/plot.svg", img1.data)
+
+        sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
+        img2 = basic_network.plot_with_states(sim1, max_node_width=0.3, scale=1.1)[0]
+        write_to("basic_network/sim.svg", img2.data)
+
+    def gen_2() -> None:
+        sim = stop_network.run_simulation([4, 4, 0, 0], n_iters=10)
+        imgs = stop_network.plot_with_states(sim.sliced[0, -1])
+        write_to("stop_network/sim1.svg", imgs[0].data)
+        write_to("stop_network/sim2.svg", imgs[-1].data)
+
+    do_multiple(
+        gen_1,
+        gen_2,
+    )()
 
 
 def main(

@@ -9,7 +9,8 @@
     "cSpell.enabled": true,
     "cSpell.language": "ru,en",
     "cSpell.enableFiletypes": [
-        "typst"
+        "typst",
+        "!python"
     ],
     "cSpell.diagnosticLevel": "Information",
     "cSpell.maxNumberOfProblems": 50,
@@ -27,9 +28,11 @@
         "thmproof",
         "thmrules",
         "typst",
+        "underbrace",
         "Zhilyakova",
         "графовая",
         "многоагентные",
+        "стабилизирующейся",
         "эйлеровых"
     ],
 }
