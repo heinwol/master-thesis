@@ -267,11 +267,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1712332667,
-        "narHash": "sha256-Kcvzi6U0Y9yGTdt2pL46RmxuwVirQg/QkdJuKWLCHtw=",
+        "lastModified": 1712573244,
+        "narHash": "sha256-0vhTGZJTIwzYqKkWQJTM9Tn16sAOLu8ALglEh5Z3t4w=",
         "ref": "refs/heads/main",
-        "rev": "e3fa9e37be194e7acea094eda1efcd5d208e19f8",
-        "revCount": 140,
+        "rev": "90618a988dc28db42dc41e6e66efe7e5af001469",
+        "revCount": 141,
         "type": "git",
         "url": "file:/home/heinwol/Documents/work/ipu/sponge_networks"
       },

@@ -9,7 +9,9 @@ sys.path.append(
 from typing import Annotated, Any, Optional
 from typing_extensions import override
 import sponge_networks as sn
-from sponge_networks.utils.utils import partial, do_multiple
+from sponge_networks.utils.utils import do_multiple
+from sponge_networks.display import scale_graph_pos
+from functools import partial
 import typer
 import networkx as nx
 import numpy as np
@@ -77,6 +79,7 @@ class WithEdges(sn.display.DrawableGraphWithContext[sn.display.JustDrawableConte
         G = self.drawing_graph
         G.graph["edge"]["fontcolor"] = "red"
         G.graph["edge"]["fontsize"] = self.display_context.scale * 12
+        scale_graph_pos(G, 0.8)
 
 
 # def with_red_weights(G: nx.DiGraph) -> None:
@@ -115,11 +118,19 @@ def create_all_images(images_folder: Path) -> None:
         img = some_sponge_network_without_sinks.resource_network.plot(scale=1.4)
         write_to("some_sponge_network_without_sinks/plot.svg", img.data)
 
+    def gen_5() -> None:
+        img = some_sponge_network_without_sinks.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.8)
+        )
+
+        write_to("some_sponge_network_without_sinks2/plot.svg", img.data)
+
     do_multiple(
         gen_1,
         gen_2,
         gen_3,
         gen_4,
+        gen_5,
     )()
 
 
