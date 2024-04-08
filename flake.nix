@@ -93,11 +93,12 @@
           pkgs.typstfmt
         ]
         ++ (with pkgs; [
-          sn-with-pkgs
           graphviz
+          just
           libnotify
           nushell
-          just
+          pandoc
+          sn-with-pkgs
           # libsForQt5.kdialog
         ]);
       };
