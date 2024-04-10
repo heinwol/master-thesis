@@ -84,6 +84,8 @@
   show figure.caption: set text(size: 0.8em)
   show figure.caption: set par(leading: 1em)
 
+  // show figure.where(kind: 1): ""
+
   // set figure(supplement: "рис.")
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318

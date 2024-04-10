@@ -1,5 +1,5 @@
 #import "./template.typ": thmrules, template, definition, theorem, proof
-
+#import "@preview/sourcerer:0.2.1": code as code_
 #let sp = h(0.5em)
 
 #let state_dict(d) = {
@@ -18,8 +18,15 @@
   (..args) => image("../assets/generated/" + subpath, ..args)
 }
 
+#let image_by_hand(subpath) = {
+  assert(type(subpath) == str)
+  (..args) => image("../assets/images/" + subpath, ..args)
+}
+
 #show: thmrules
 #show: template
+
+#let code(..args) = code_(lang: "python", ..args)
 
 ////////////////////////
 // Document begins!
@@ -244,14 +251,68 @@ $ S(q) = q dot R'. $ <eq:Markov>
 - искать предельные состояния ресурсной цепи, а также положения равновесия эргодической ресурсной сети как цепи Маркова;
 - представлять симуляции в виде массивов, листов Excel и графиков;
 - рисовать ресурсные сети;
-- рисовать симуляции в виде ресурсных сетей с анимациями, реализованными с помощью слайдера, который позволяет визуализировать на граф ресурсной сети в произвольный момент времени;
+- рисовать симуляции в виде ресурсных сетей с анимациями, реализованными с помощью слайдера, который позволяет визуализировать на граф ресурсной сети в произвольный момент времени (@fig:some_sim_with_slider_1, @fig:some_sim_with_slider_2);
+#grid(
+  columns: 2,
+  align: center,
+  [
+    #figure(
+      caption: [Некоторая сеть в момент времени $t = 0$.],
+      image_by_hand("some_sim_with_slider/1.png")(width: 85%)
+    ) <fig:some_sim_with_slider_1>
+  ],
+  [
+    #figure(
+      caption: [Та же сеть в момент времени $t = 49.$],
+      image_by_hand("some_sim_with_slider/2.png")(width: 85%)
+    ) <fig:some_sim_with_slider_2>
+  ],
+)
+
 - экспортировать анимации в gif;
 - создавать губковые сети на основе обычных ресурсных сетей и проводить их симуляции;
 - создавать губковые сети по шаблону, указывая тип и параметры сетки, а также веса ребер по направлению. Присутствует возможность указать, создавать ли в сети стоки.
 
 === Типы сеток
 
+Были рассмотрены и реализованы губковые сети не только с квадратной сеткой (как на @fig:some_sponge_network_1), но и с треугольной (@fig:network_types_example_triangular), и с шестиугольной (@fig:network_types_example_hexagonal).
 
+#figure(
+  caption: [Пример губковой сети с треугольной сеткой.],
+  placement: bottom,
+  generated_image("network_types_example/triangular.svg")(width: 75%)
+) <fig:network_types_example_triangular>
+
+#figure(
+  caption: [Пример губковой сети с шестиугольной сеткой.],
+  placement: bottom,
+  generated_image("network_types_example/hexagonal.svg")(width: 75%)
+) <fig:network_types_example_hexagonal>
+
+Все вышеуказанные сети могут быть построены с помощью функции `build_sponge_network`. Например, сеть на @fig:some_sponge_network_1 была построена так, как приведено на @lst:build_sponge_network_ex[Листинге].
+Из приведенного вызова функции можно видеть, какие параметры можно задавать для сети: тип сети `grid_type` (`"grid_2d"` -- квадратная сетка, `"triangular"` -- треугольная, `"hexagonal"` -- шестиугольная); количество "столбцов" `n_cols`; количество "строк" `n_rows`; видимую длину ребер, ведущих в стоковые вершины `visual_sink_edge_length` и особенности сети `layout`. Последний параметр включает в себя описание весов ребер в сети, а также флаг, указывающий, создавать ли стоковые вершины.
+
+#figure(
+  caption: [Пример создания губковой сети с помощью функции `build_sponge_network`.],
+  code(
+    ```python
+    build_sponge_network(
+        grid_type="grid_2d",
+        n_cols=4,
+        n_rows=3,
+        layout={
+            "weights_horizontal": 3,
+            "weights_up_down": 5,
+            "weights_down_up": 1,
+            "weights_loop": 1,
+            "weights_sink_edge": 1,
+            "generate_sinks": True,
+        },
+        visual_sink_edge_length=0.7,
+    )
+    ```
+  )
+) <lst:build_sponge_network_ex>
 
 
 = ЗАКЛЮЧЕНИЕ <nonum>
