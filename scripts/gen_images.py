@@ -1,3 +1,6 @@
+from copy import copy, deepcopy
+from dataclasses import asdict, dataclass, field
+import multiprocessing
 import sys
 import os
 from pathlib import Path
@@ -6,7 +9,7 @@ sys.path.append(
     f"{os.environ.get('SN_DIR')}"
 )  # just for the sake of using this script inside sponge_networks
 
-from typing import Annotated, Any, Optional
+from typing import Annotated, Any, Callable, Optional, TypedDict
 from typing_extensions import override
 import sponge_networks as sn
 from sponge_networks.utils.utils import do_multiple
@@ -43,33 +46,36 @@ stop_network = sn.ResourceNetworkGreedy[int](
     )
 )
 
-some_sponge_network = sn.build_sponge_network(
-    grid_type="grid_2d",
-    n_cols=4,
-    n_rows=2,
-    layout={
-        "weights_horizontal": 3,
-        "weights_up_down": 5,
-        "weights_down_up": 1,
-        "weights_loop": 1,
-        "weights_sink_edge": 1,
-        "generate_sinks": True,
-    },
-    visual_sink_edge_length=0.7,
-)
-some_sponge_network_without_sinks = sn.build_sponge_network(
-    grid_type="grid_2d",
-    n_cols=4,
-    n_rows=2,
-    layout={
-        "weights_horizontal": 3,
-        "weights_up_down": 5,
-        "weights_down_up": 1,
-        "weights_loop": 1,
-        "weights_sink_edge": 1,
-        "generate_sinks": False,
-    },
-    visual_sink_edge_length=0.7,
+
+@dataclass
+class TypicalProperties:
+    n_cols: int = 4
+    n_rows: int = 2
+    layout: sn.sponge_networks._LayoutDict = field(
+        default_factory=lambda: {
+            "weights_horizontal": 3,
+            "weights_up_down": 5,
+            "weights_down_up": 1,
+            "weights_loop": 1,
+            "weights_sink_edge": 1,
+            "generate_sinks": True,
+        }
+    )
+    visual_sink_edge_length: float = 0.7
+
+
+typical_properties = asdict(TypicalProperties())
+
+
+def build_typical(overrides: dict) -> sn.SpongeNetwork[sn.sponge_networks.SpongeNode]:
+    it = deepcopy(typical_properties)
+    sn.utils.utils.set_object_property_nested(it, overrides, priority="right")
+    return sn.build_sponge_network(**it)
+
+
+some_sponge_network = build_typical({"grid_type": "grid_2d"})
+some_sponge_network_without_sinks = build_typical(
+    {"grid_type": "grid_2d", "layout": {"generate_sinks": False}}
 )
 
 
@@ -82,7 +88,10 @@ class WithEdges(sn.display.DrawableGraphWithContext[sn.display.JustDrawableConte
         scale_graph_pos(G, 0.8)
 
 
-# def with_red_weights(G: nx.DiGraph) -> None:
+def process_all_generation(funcs: list[Callable[[], None]]) -> None:
+    n_pools = min(os.cpu_count() or 1, len(funcs))
+    pool_obj = multiprocessing.Pool(n_pools)
+    pool_obj.map(lambda f: f(), funcs)
 
 
 def write_img(images_folder: Path, concrete_path: Path | str, data: Any) -> None:
@@ -122,15 +131,32 @@ def create_all_images(images_folder: Path) -> None:
         img = some_sponge_network_without_sinks.resource_network.plot(
             scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.8)
         )
-
         write_to("some_sponge_network_without_sinks2/plot.svg", img.data)
 
+    def gen_6() -> None:
+        nw_triangular = build_typical(
+            {"grid_type": "triangular", "n_cols": 8, "n_rows": 3}
+        )
+        img = nw_triangular.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+        )
+        write_to("network_types_example/triangular.svg", img.data)
+
+        nw_hexagonal = build_typical(
+            {"grid_type": "hexagonal", "n_cols": 4, "n_rows": 2}
+        )
+        img = nw_hexagonal.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.9)
+        )
+        write_to("network_types_example/hexagonal.svg", img.data)
+
     do_multiple(
-        gen_1,
-        gen_2,
-        gen_3,
-        gen_4,
-        gen_5,
+        # gen_1,
+        # gen_2,
+        # gen_3,
+        # gen_4,
+        # gen_5,
+        gen_6,
     )()
 
 
