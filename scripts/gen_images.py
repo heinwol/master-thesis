@@ -135,7 +135,7 @@ def create_all_images(images_folder: Path) -> None:
 
     def gen_6() -> None:
         nw_triangular = build_typical(
-            {"grid_type": "triangular", "n_cols": 8, "n_rows": 3}
+            {"grid_type": "triangular", "n_cols": 5, "n_rows": 3}
         )
         img = nw_triangular.resource_network.plot(
             scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)

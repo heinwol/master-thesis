@@ -5,8 +5,21 @@
   "Теорема",
   fill: rgb("#eeffee"),
   supplement: none,
+  base_level: 1,
   //
 )
+
+#let proposition = thmbox(
+  "proposition",
+  "Предложение",
+  stroke: rgb("#68ff68") + 1pt,
+  supplement: none,
+  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
+  padding: (top: 0em, bottom: 0em),
+  base_level: 1,
+  //
+)
+
 #let proof = thmproof("proof", "Доказательство")
 #let definition = thmbox(
   "definition",
