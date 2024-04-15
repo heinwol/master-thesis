@@ -150,13 +150,39 @@ def create_all_images(images_folder: Path) -> None:
         )
         write_to("network_types_example/hexagonal.svg", img.data)
 
+    def gen_7() -> None:
+        nw_triangular = build_typical(
+            {"grid_type": "triangular", "n_cols": 4, "n_rows": 2}
+        )
+        img = nw_triangular.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+        )
+        write_to("network_types_example_sym/triangular.svg", img.data)
+
+        nw_hexagonal = build_typical(
+            {"grid_type": "hexagonal", "n_cols": 3, "n_rows": 2}
+        )
+        img = nw_hexagonal.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.9)
+        )
+        write_to("network_types_example_sym/hexagonal.svg", img.data)
+
+        nw_triangular_single = build_typical(
+            {"grid_type": "triangular", "n_cols": 1, "n_rows": 5}
+        )
+        img = nw_triangular_single.resource_network.plot(
+            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+        )
+        write_to("network_types_example_sym/triangular_single.svg", img.data)
+
     do_multiple(
         # gen_1,
         # gen_2,
         # gen_3,
         # gen_4,
         # gen_5,
-        gen_6,
+        # gen_6,
+        gen_7,
     )()
 
 

@@ -102,7 +102,7 @@
   // set figure(supplement: "рис.")
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
-  show regex("^!"): context h(par.leading)
+  show regex("^!!"): context h(par.leading)
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)
