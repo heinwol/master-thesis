@@ -92,6 +92,7 @@
     "(" + ((counter(heading).get().at(0),) + (num,)).map(str).join(".") + ")"
   )
   set math.equation(supplement: none)
+  show math.cases: set align(left)
 
 
   show figure.caption: set text(size: 0.8em)
