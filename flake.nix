@@ -16,7 +16,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     sponge-networks = {
-      url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks";
+      url = "github:heinwol/sponge-networks";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
     pandoc-latest = {

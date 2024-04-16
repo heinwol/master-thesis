@@ -321,16 +321,17 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "dirtyRev": "90618a988dc28db42dc41e6e66efe7e5af001469-dirty",
-        "dirtyShortRev": "90618a9-dirty",
         "lastModified": 1712573244,
-        "narHash": "sha256-HnI/PwDXaZ22A4IfaVaq06/7VxIWVrk6Z5CQVxvwrFQ=",
-        "type": "git",
-        "url": "file:/home/heinwol/Documents/work/ipu/sponge_networks"
+        "narHash": "sha256-0vhTGZJTIwzYqKkWQJTM9Tn16sAOLu8ALglEh5Z3t4w=",
+        "owner": "heinwol",
+        "repo": "sponge-networks",
+        "rev": "90618a988dc28db42dc41e6e66efe7e5af001469",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/heinwol/Documents/work/ipu/sponge_networks"
+        "owner": "heinwol",
+        "repo": "sponge-networks",
+        "type": "github"
       }
     },
     "systems": {
