@@ -1,40 +1,10 @@
-#import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
-#import "@preview/sourcerer:0.2.1": code as code_
+#let theorem(cnt) = [*Теорема:* #cnt]
+#let proposition(cnt) = [*Предложение:* #cnt]
+#let proof(cnt) = [*Доказательство:* #cnt]
+#let definition(cnt) = [*Определение:* #cnt]
+#let thmrules(it) = it
 
-#let code(..args) = code_(lang: "python", ..args)
-
-#let theorem = thmbox(
-  "theorem",
-  "Теорема",
-  fill: rgb("#eeffee"),
-  supplement: none,
-  base_level: 1,
-  //
-)
-
-#let proposition = thmbox(
-  "proposition",
-  "Предложение",
-  stroke: rgb("#68ff68") + 1pt,
-  supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
-  base_level: 1,
-  //
-)
-
-#let proof = thmproof("proof", "Доказательство")
-#let definition = thmbox(
-  "definition",
-  "Определение",
-  base_level: 1, // take only the first level from the base
-  stroke: rgb("#68ff68") + 1pt,
-  fill: rgb("#eeffee"),
-  supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
-  // separator: none, //[#h(0.1em):#h(0.2em)],
-)
+#let code(..args) = [..args]
 
 #let with(func: function, ..k, content: content) = {
   set func(..k)
@@ -90,23 +60,23 @@
   show heading.where(level: 1): it => { pagebreak(); it }
   show heading.where(level: 3): set heading(numbering: none, outlined: false)
 
-  set math.equation(
-    numbering: num =>
-    "(" + ((counter(heading).get().at(0),) + (num,)).map(str).join(".") + ")"
-  )
-  set math.equation(supplement: none)
-  show math.cases: set align(left)
+  // set math.equation(
+  //   numbering: num =>
+  //   "(" + ((counter(heading).get().at(0),) + (num,)).map(str).join(".") + ")"
+  // )
+  // set math.equation(supplement: none)
+  // show math.cases: set align(left)
 
 
-  show figure.caption: set text(size: 0.8em)
-  show figure.caption: set par(leading: 1em)
+  // show figure.caption: set text(size: 0.8em)
+  // show figure.caption: set par(leading: 1em)
 
   // show figure.where(kind: 1): ""
 
   // set figure(supplement: "рис.")
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
-  show regex("^!!"): context h(par.leading)
+  // show regex("^!!"): context h(par.leading)
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)

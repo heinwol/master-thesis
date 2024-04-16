@@ -1,10 +1,10 @@
-#import "./template.typ": thmrules, template, definition, theorem, proof, proposition
-#import "@preview/sourcerer:0.2.1": code as code_
+#import "./template_to_export.typ": thmrules, template, definition, theorem, proof, proposition, code
+
 
 #let sp = h(0.5em)
 
 #let state_dict(d) = {
-  assert(type(d) == dictionary)
+  // assert(type(d) == dictionary)
   ${
     #(d
     .pairs()
@@ -15,19 +15,17 @@
 }
 
 #let generated_image(subpath) = {
-  assert(type(subpath) == str)
+  // assert(type(subpath) == str)
   (..args) => image("../assets/generated/" + subpath, ..args)
 }
 
 #let image_by_hand(subpath) = {
-  assert(type(subpath) == str)
+  // assert(type(subpath) == str)
   (..args) => image("../assets/images/" + subpath, ..args)
 }
 
 #show: thmrules
 #show: template
-
-#let code(..args) = code_(lang: "python", ..args)
 
 ////////////////////////
 // Document begins!
@@ -344,7 +342,7 @@ $ S(q) = q dot R'. $ <eq:Markov>
 
 Губковые сети, представленные до сих пор, могут быть рассмотрены как подграфы канонических графов для соответствующих регулярных замощений плоскости. Конечно, для проведения такого соответствия $cal(I)$, переводящего ресурсную сеть в подмножество соответствующего разбиения, нужно откинуть веса ребер у губковой сети, а также превратить ее граф из ориентированного в неориентированный. Именно в этом смысле графы губковых сетей являются регулярными. Однако, следует заметить, что сужение $"Sym"(cal(F))$ на образ $cal(I)$  (т.е. $"Im"(cal(I))$) не является группой, так что указанная симметрия замощения на губковые сети не работает.
 
-Сделаем теперь комментарий насчет количества "строк" и "столбцов", характеризующих губковую сеть и указываемых при создании конкретного объекта (как на @lst:build_sponge_network_ex[Листинге]). Считать строки и столбцы следует не по вершинам, а по многоугольникам в $"Im"(cal(I))$. Так, число этих многоугольников равно в точности `n_rows` #math.dot `n_cols`, в чем можно убедиться, взглянув на @fig:network_types_example_triangular и @fig:network_types_example_hexagonal.
+Сделаем теперь комментарий насчет количества "строк" и "столбцов", характеризующих губковую сеть и указываемых при создании конкретного объекта (как на @lst:build_sponge_network_ex[Листинге]). Считать строки и столбцы следует не по вершинам, а по многоугольникам в $"Im"(cal(I))$. Так, число этих многоугольников равно в точности `n_rows` $dot$ `n_cols`, в чем можно убедиться, взглянув на @fig:network_types_example_triangular и @fig:network_types_example_hexagonal.
 
 Как было сказано выше, губковые сети не обладают симметрией, если их рассматривать как часть замощения плоскости. Однако более продуктивным оказывается рассмотрение их группы симметрий как графов.
 

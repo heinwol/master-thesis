@@ -53,10 +53,16 @@
           url = "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz";
           hash = "sha256-21VsmM8gfS/dwIjRLS4vNn2UAXhNSj6RSwaPqJXc8/A=";
         };
-        buildInputs = with pkgs; [ gnutar ];
+        buildInputs = with pkgs; [ gnutar makeWrapper ];
         installPhase = ''
           mkdir $out
           tar xvzf $src --strip-components 1 -C $out
+        '';
+        postFixup = ''
+          wrapProgram $out/bin/pandoc \
+            --set PATH ${lib.makeBinPath (with pkgs; [
+              librsvg
+            ])}
         '';
       });
 
