@@ -19,6 +19,10 @@
       url = "git+file:/home/heinwol/Documents/work/ipu/sponge_networks";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    pandoc-latest = {
+      url = "github:jgm/pandoc";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Example of downloading icons from a non-flake source
     # font-awesome = {
     #   url = "github:FortAwesome/Font-Awesome";
@@ -38,9 +42,25 @@
     let
       pkgs = nixpkgs.legacyPackages.${system};
       inherit (pkgs) lib;
-      typixLib = typix.lib.${system};
 
       traceit = x: lib.trace x x;
+
+      # new-pandoc = pkgs.pandoc;
+      new-pandoc = pkgs.stdenv.mkDerivation (attrs: rec {
+        name = "pandoc-bin";
+        version = "3.1.13";
+        src = pkgs.fetchurl {
+          url = "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz";
+          hash = "sha256-21VsmM8gfS/dwIjRLS4vNn2UAXhNSj6RSwaPqJXc8/A=";
+        };
+        buildInputs = with pkgs; [ gnutar ];
+        installPhase = ''
+          mkdir $out
+          tar xvzf $src --strip-components 1 -C $out
+        '';
+      });
+
+      typixLib = typix.lib.${system};
 
       src = typixLib.cleanTypstSource ./typst;
       commonArgs = {
@@ -97,8 +117,10 @@
           just
           libnotify
           nushell
-          pandoc
+          # inputs.pandoc-latest.outputs.defaultPackage.${system}.pandoc
+          new-pandoc
           sn-with-pkgs
+          helix
           # libsForQt5.kdialog
         ]);
       };
