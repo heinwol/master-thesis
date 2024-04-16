@@ -1,4 +1,4 @@
-#import "./template_to_export.typ": thmrules, template, definition, theorem, proof, proposition, code
+#import "./template.typ": thmrules, template, definition, theorem, proof, proposition, code
 
 
 #let sp = h(0.5em)

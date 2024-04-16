@@ -32,3 +32,10 @@ build-python-env:
 update-lock:
   nix flake lock --update-input sponge-networks
   direnv reload
+
+convert-to-docx:
+  #!/usr/bin/env nu
+  cd typst
+  sd -s '"./template.typ"' '"./template_to_export.typ"' main.typ
+  try { pandoc main.typ -o ../ignored/main.docx }
+  sd -s '"./template_to_export.typ"' '"./template.typ"' main.typ
