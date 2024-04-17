@@ -175,6 +175,21 @@ def create_all_images(images_folder: Path) -> None:
         )
         write_to("network_types_example_sym/triangular_single.svg", img.data)
 
+    def gen_8() -> None:
+        nw = build_typical({"grid_type": "triangular", "n_cols": 6, "n_rows": 2})
+        qn = sn.QuotientSpongeNetwork(nw, [[(0, 1), (3, 0)]])
+        sim_q = qn.quotient_sponge_network.run_sponge_simulation(
+            [0, 30, 0, 0], n_iters=2
+        )
+        imgs = qn.quotient_network.plot_with_states(
+            sim_q,
+            scale=1.2,
+            prop_setter=partial(scale_graph_pos, scale=1),
+            max_node_width=0.7,
+        )
+        write_to("qn_1/1.svg", imgs[0].data)
+        write_to("qn_1/2.svg", imgs[1].data)
+
     do_multiple(
         # gen_1,
         # gen_2,
@@ -182,7 +197,8 @@ def create_all_images(images_folder: Path) -> None:
         # gen_4,
         # gen_5,
         # gen_6,
-        gen_7,
+        # gen_7,
+        gen_8,
     )()
 
 
