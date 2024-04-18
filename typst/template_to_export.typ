@@ -2,6 +2,7 @@
 #let proposition(cnt) = [*Предложение:* #cnt]
 #let proof(cnt) = [*Доказательство:* #cnt]
 #let definition(cnt) = [*Определение:* #cnt]
+#let lemma(cnt) = [*Лемма:* #cnt]
 #let thmrules(it) = it
 
 #let code(..args) = [..args]

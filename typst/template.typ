@@ -12,6 +12,15 @@
   //
 )
 
+#let lemma = thmbox(
+  "lemma",
+  "Лемма",
+  fill: rgb("#eeffee"),
+  supplement: none,
+  base_level: 1,
+  //
+)
+
 #let proposition = thmbox(
   "proposition",
   "Предложение",
