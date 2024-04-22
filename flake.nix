@@ -127,7 +127,6 @@
           new-pandoc
           sn-with-pkgs
           helix
-          sd
           # libsForQt5.kdialog
         ]);
       };
