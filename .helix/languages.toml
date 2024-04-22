@@ -3,3 +3,19 @@ command = "typst-lsp"
 # args = ["--stdio"]
 config = { exportPdf = "onSave" }
 environment = { "TYPST_ROOT" = "$WORKDIR" }
+
+# [language-server.pylsp]
+# command = "pylsp"
+# # args = ["--stdio"]
+# # config = { exportPdf = "onSave" }
+# environment = { "PYTHONPATH" = "$WORKDIR/.nix-env/bin/python" }
+
+
+[language-server.pylsp.config.pylsp]
+plugins.black.enabled = true
+plugins.pylint.enabled = true
+plugins.pyflakes.enabled = false
+plugins.pyls_mypy.enabled = true
+plugins.pyls_mypy.live_mode = false
+plugins.isort.enabled = true
+plugins.rope_autoimport.enabled = true

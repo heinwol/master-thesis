@@ -190,7 +190,11 @@ def create_all_images(images_folder: Path) -> None:
         write_to("qn_1/1.svg", imgs[0].data)
         write_to("qn_1/2.svg", imgs[1].data)
 
-    do_multiple(
+    def gen_9() -> None:
+            nw = build_typical({"grid_type": "grid_2d", "n_cols": 5, "n_rows": 3})
+            qn = sn.build
+            write_to("qn_1/2.svg", imgs[1].data)
+        do_multiple(
         # gen_1,
         # gen_2,
         # gen_3,
