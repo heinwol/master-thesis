@@ -1,0 +1,5 @@
+[language-server.typst-lsp]
+command = "typst-lsp"
+# args = ["--stdio"]
+config = { exportPdf = "onSave" }
+environment = { "TYPST_ROOT" = "$WORKDIR" }

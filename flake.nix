@@ -128,6 +128,7 @@
           sn-with-pkgs
           helix
           # libsForQt5.kdialog
+          typst-lsp
         ]);
       };
     in
