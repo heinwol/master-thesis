@@ -191,10 +191,33 @@ def create_all_images(images_folder: Path) -> None:
         write_to("qn_1/2.svg", imgs[1].data)
 
     def gen_9() -> None:
-            nw = build_typical({"grid_type": "grid_2d", "n_cols": 5, "n_rows": 3})
-            qn = sn.build
-            write_to("qn_1/2.svg", imgs[1].data)
-        do_multiple(
+        nw = build_typical({"grid_type": "triangular", "n_cols": 6, "n_rows": 2})
+        qn = sn.quotient_sponge_network_on_cylinder(nw)
+
+        img = qn.quotient_network.plot(scale=1.2)
+        write_to("cylinder_triangular_1/plot.svg", img.data)
+
+        sim_q = qn.quotient_sponge_network.run_sponge_simulation(
+            [10, 10, 10], n_iters=7
+        )
+        first_and_last = sim_q.sliced[0, -1]
+        imgs = qn.quotient_network.plot_with_states(
+            first_and_last,
+            scale=1.2,
+            prop_setter=partial(scale_graph_pos, scale=1),
+            max_node_width=1,
+        )
+        write_to("cylinder_triangular_1/1.svg", imgs[0].data)
+        write_to("cylinder_triangular_1/2.svg", imgs[1].data)
+
+    def gen_10() -> None:
+        nw = build_typical({"grid_type": "triangular", "n_cols": 5, "n_rows": 2})
+        qn = sn.quotient_sponge_network_on_cylinder(nw)
+
+        img = qn.quotient_network.plot(scale=1.2)
+        write_to("cylinder_triangular_2/plot.svg", img.data)
+
+    do_multiple(
         # gen_1,
         # gen_2,
         # gen_3,
@@ -202,7 +225,9 @@ def create_all_images(images_folder: Path) -> None:
         # gen_5,
         # gen_6,
         # gen_7,
-        gen_8,
+        # gen_8,
+        gen_9,
+        gen_10,
     )()
 
 

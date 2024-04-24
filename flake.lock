@@ -321,11 +321,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1713521545,
-        "narHash": "sha256-ktsAnb26Q9n2NM15eaO08zL2XxgzNFnPvNd+bP03ZRU=",
+        "lastModified": 1713970006,
+        "narHash": "sha256-fD/k4yUP3/oFN5zwIpX6EmieLS6dxvxHu2lts0w91XA=",
         "owner": "heinwol",
         "repo": "sponge-networks",
-        "rev": "df890e255731bd3f3ef5274179741773d73b9a81",
+        "rev": "b18f50b930efc12bd557a20edfb2200e9536088c",
         "type": "github"
       },
       "original": {
