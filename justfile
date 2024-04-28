@@ -68,3 +68,8 @@ convert-and-replace:
   just convert-all-to-docx
   cp ./ignored/main.docx "./Корешков МНШ Отчет за 2023-2024.docx"
   cp ./ignored/request.docx "./Корешков МНШ Заявка за 2023-2024.docx"
+
+export-with-date:
+  #!/usr/bin/env nu
+  let formated = $"Корешков диплом (date now | format date "%y-%m-%d_%H-%M-%S").pdf"
+  cp ./typst/main.pdf $"($env.HOME)/Downloads/($formated)"
