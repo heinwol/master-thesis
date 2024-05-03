@@ -12,6 +12,13 @@
   //
 )
 
+#let corollary = thmplain(
+  "corollary",
+  "Следствие",
+  base: "theorem",
+  titlefmt: strong
+)
+
 #let lemma = thmbox(
   "lemma",
   "Лемма",
