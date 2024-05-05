@@ -23,6 +23,7 @@ plugins.rope_autoimport.enabled = true
 
 [language-server.tinymist]
 command = "tinymist"
+config = { exportPdf = "onSave", formatterMode = "typstyle" }
 
 [[language]]
 name = "typst"

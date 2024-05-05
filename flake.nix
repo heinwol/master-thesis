@@ -118,6 +118,7 @@
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
           pkgs.tinymist
+          pkgs.typstyle
         ]
         ++ (with pkgs; [
           graphviz
