@@ -217,6 +217,21 @@ def create_all_images(images_folder: Path) -> None:
         img = qn.quotient_network.plot(scale=1.2)
         write_to("cylinder_triangular_2/plot.svg", img.data)
 
+    def gen_11() -> None:
+        nw = sn.ResourceNetwork[int](
+            nx.from_numpy_array(
+                np.array(
+                    [
+                        [0, 3, 1],
+                        [4, 0, 0],
+                        [2, 0, 0],
+                    ]
+                ),
+                create_using=nx.DiGraph,
+            )
+        )
+        write_to("noninjective_network/plot.svg", nw.plot(scale=2.0).data)
+
     do_multiple(
         # gen_1,
         # gen_2,
@@ -226,8 +241,9 @@ def create_all_images(images_folder: Path) -> None:
         # gen_6,
         # gen_7,
         # gen_8,
-        gen_9,
-        gen_10,
+        # gen_9,
+        # gen_10,
+        gen_11,
     )()
 
 

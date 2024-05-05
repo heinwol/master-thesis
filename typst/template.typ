@@ -19,6 +19,12 @@
   titlefmt: strong
 )
 
+#let remark = thmplain(
+  "remark",
+  "Замечание",
+  titlefmt: strong
+).with(numbering: none)
+
 #let lemma = thmbox(
   "lemma",
   "Лемма",
@@ -70,7 +76,7 @@
   set text(
     font: "Liberation Serif",
     lang: "ru",
-    size: 12pt,
+    size: 14pt,
     // fallback: true,
     // hyphenate: false,
   )
