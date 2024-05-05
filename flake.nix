@@ -117,6 +117,7 @@
           watch-script
           # typstfmt.packages.${system}.typstfmt
           pkgs.typstfmt
+          pkgs.tinymist
         ]
         ++ (with pkgs; [
           graphviz
