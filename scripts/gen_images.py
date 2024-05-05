@@ -232,6 +232,27 @@ def create_all_images(images_folder: Path) -> None:
         )
         write_to("noninjective_network/plot.svg", nw.plot(scale=2.0).data)
 
+    def gen_12() -> None:
+        nw = sn.build_sponge_network(
+            grid_type="grid_2d",
+            n_cols=4,
+            n_rows=2,
+            layout={
+                "weights_sink_edge": 1,
+                "weights_loop": 1,
+                "weights_horizontal": 2,
+                "weights_up_down": 5,
+                "weights_down_up": 1,
+                "generate_sinks": True,
+            },
+            visual_sink_edge_length=0.7,
+        )
+        sim = nw.run_sponge_simulation([8, 20, 0, 20, 8])
+        sim_ = sim.sliced[0, 4]
+        imgs = nw.resource_network.plot_with_states(sim_, scale=1.4)
+        write_to("sponge_symmetrical_sim/1.svg", imgs[0].data)
+        write_to("sponge_symmetrical_sim/2.svg", imgs[1].data)
+
     do_multiple(
         # gen_1,
         # gen_2,
@@ -243,7 +264,8 @@ def create_all_images(images_folder: Path) -> None:
         # gen_8,
         # gen_9,
         # gen_10,
-        gen_11,
+        # gen_11,
+        gen_12,
     )()
 
 
