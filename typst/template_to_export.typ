@@ -3,6 +3,9 @@
 #let proof(cnt) = [*Доказательство:* #cnt]
 #let definition(cnt) = [*Определение:* #cnt]
 #let lemma(cnt) = [*Лемма:* #cnt]
+#let corollary(cnt) = [*Следствие:* #cnt]
+#let remark(cnt) = [*Замечание:* #cnt]
+
 #let thmrules(it) = it
 
 #let code(..args) = [..args]
