@@ -253,6 +253,29 @@ def create_all_images(images_folder: Path) -> None:
         write_to("sponge_symmetrical_sim/1.svg", imgs[0].data)
         write_to("sponge_symmetrical_sim/2.svg", imgs[1].data)
 
+    def gen_13() -> None:
+        nw = sn.build_sponge_network(
+            grid_type="grid_2d",
+            n_cols=6,
+            n_rows=3,
+            layout={
+                "weights_sink_edge": 1,
+                "weights_loop": 1,
+                "weights_horizontal": 2,
+                "weights_up_down": 5,
+                "weights_down_up": 1,
+                "generate_sinks": True,
+            },
+            visual_sink_edge_length=0.7,
+        )
+
+        qn = sn.quotient_sponge_network_on_cylinder(nw)
+        sim_q = qn.quotient_sponge_network.run_sponge_simulation([12, 0, 12, 0, 12, 0])
+        sim_ = sim_q.sliced[0, 3]
+        imgs = qn.quotient_network.plot_with_states(sim_, scale=1.4)
+        write_to("sponge_symmetrical_2_sim/1.svg", imgs[0].data)
+        write_to("sponge_symmetrical_2_sim/2.svg", imgs[1].data)
+
     do_multiple(
         # gen_1,
         # gen_2,
@@ -265,7 +288,8 @@ def create_all_images(images_folder: Path) -> None:
         # gen_9,
         # gen_10,
         # gen_11,
-        gen_12,
+        # gen_12,
+        gen_13,
     )()
 
 
