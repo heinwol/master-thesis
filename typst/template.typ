@@ -16,13 +16,13 @@
   "corollary",
   "Следствие",
   base: "theorem",
-  titlefmt: strong
+  titlefmt: strong,
 )
 
 #let remark = thmplain(
   "remark",
   "Замечание",
-  titlefmt: strong
+  titlefmt: strong,
 ).with(numbering: none)
 
 #let lemma = thmbox(
@@ -69,9 +69,62 @@
 //   }
 // }
 
+// indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
+#let indent = 1.25em
+#let styled = [#set text(red)].func()
+#let space = [ ].func()
+#let sequence = [].func()
+
+#let turn-on-first-line-indentation(
+  doc,
+  last-is-heading: false, // space and parbreak are ignored
+  indent-already-added: false,
+) = {
+  for (i, elem) in doc.children.enumerate() {
+    let element = elem.func()
+    if element == text {
+      let previous-elem = doc.children.at(i - 1)
+      if i == 0 or last-is-heading or previous-elem.func() == parbreak {
+        if not indent-already-added {
+          indent-already-added = true
+          h(indent)
+        }
+      }
+      elem
+    } else if element == heading {
+      indent-already-added = false
+      last-is-heading = true
+      elem
+    } else if element == space {
+      elem
+    } else if element == parbreak {
+      indent-already-added = false
+      elem
+    } else if element == sequence {
+      turn-on-first-line-indentation(
+        elem,
+        last-is-heading: last-is-heading,
+        indent-already-added: indent-already-added,
+      )
+    } else if element == styled {
+      styled(
+        turn-on-first-line-indentation(
+          elem.child,
+          last-is-heading: last-is-heading,
+          indent-already-added: indent-already-added,
+        ),
+        elem.styles,
+      )
+    } else {
+      indent-already-added = false
+      last-is-heading = false
+      elem
+    }
+  }
+}
+
 #let template(body) = {
   // set document(author: "dds", title: "ds")
-
   // Set the basic text properties.
   set text(
     font: "Liberation Serif",
@@ -95,7 +148,7 @@
   set par(
     leading: 1.25em,
     justify: true,
-    first-line-indent: 1.25em,
+    // first-line-indent: 1.25em,
     // hanging-indent: 1.25em,
   )
 
@@ -108,13 +161,22 @@
 
   set heading(numbering: "1.1.")
   show heading: set align(center)
-  show heading: it => {it; v(1em)}
-  show heading.where(level: 1): it => { pagebreak(); it }
+  show heading: it => {
+    it
+    v(1em)
+  }
+  show heading.where(level: 1): it => {
+    pagebreak()
+    it
+  }
   show heading.where(level: 3): set heading(numbering: none, outlined: false)
 
-  set math.equation(
-    numbering: num =>
-    "(" + ((counter(heading).get().at(0),) + (num,)).map(str).join(".") + ")"
+  set math.equation( //
+    numbering: (num =>
+    "("
+    + ((counter(heading).get().at(0),)
+    + (num,)).map(str).join(".")
+    + ")")
   )
   set math.equation(supplement: none)
   show math.cases: set align(left)
@@ -132,6 +194,8 @@
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)
+
+  show: turn-on-first-line-indentation
 
   body
 }
