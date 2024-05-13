@@ -326,14 +326,14 @@ $ S(q) = q dot R'. $ <eq:Markov>
 
 #figure(
   caption: [Пример губковой сети с треугольной сеткой (`n_rows` $= 3$, `n_cols` $= 5$).],
-  placement: bottom,
-  generated_image("network_types_example/triangular.svg")(width: 55%),
+  placement: top,
+  generated_image("network_types_example/triangular.svg")(width: 65%),
 ) <fig:network_types_example_triangular>
 
 #figure(
   caption: [Пример губковой сети с шестиугольной сеткой (`n_rows` $= 2$, `n_cols` $= 4$).],
   placement: bottom,
-  generated_image("network_types_example/hexagonal.svg")(width: 75%),
+  generated_image("network_types_example/hexagonal.svg")(width: 85%),
 ) <fig:network_types_example_hexagonal>
 
 Все вышеуказанные сети могут быть построены с помощью функции `build_sponge_network`. Например, сеть на @fig:some_sponge_network_1 была построена так, как приведено на @lst:build_sponge_network_ex[Листинге].
