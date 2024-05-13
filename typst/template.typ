@@ -1,7 +1,12 @@
 #import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
 #import "@preview/sourcerer:0.2.1": code as code_
 
-#let code(..args) = code_(lang: "python", ..args)
+#let code(..args) = code_(..args)
+
+#let thmbox = thmbox.with(
+  inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
+  padding: (top: 0em, bottom: 0em),
+)
 
 #let theorem = thmbox(
   "theorem",
@@ -126,18 +131,19 @@
     lang: "ru",
     size: 14pt,
     // fallback: true,
-    // hyphenate: false,
+    hyphenate: false,
+    overhang: false,
   )
 
   // Set the basic page properties.
   set page(
     paper: "a4",
     number-align: center,
-    margin: (top: 10mm, bottom: 10mm, left: 30mm, right: 10mm),
+    margin: (top: 20.5mm, bottom: 20.5mm, left: 30.5mm, right: 10.5mm),
     numbering: "1",
     // footer: rect(fill: aqua)[Footer],
   )
-  counter(page).update(2)
+  counter(page).update(1)
 
   // Set the basic paragraph properties.
   set par(
@@ -185,7 +191,7 @@
   // set figure(supplement: "рис.")
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
-  show regex("^!!"): context h(par.leading)
+  show regex("^\s*!!\s*"): context h(indent)
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)
