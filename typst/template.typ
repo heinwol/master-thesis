@@ -1,16 +1,22 @@
 #import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
 #import "@preview/sourcerer:0.2.1": code as code_
 
+#let indent = 1.25cm
+
 #let code(..args) = code_(..args)
 
 #let thmbox = thmbox.with(
   inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
   padding: (top: 0em, bottom: 0em),
 )
+#let thmplain = thmplain.with(
+  inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
+  padding: (top: 0em, bottom: 0em),
+)
 
 #let theorem = thmbox(
   "theorem",
-  "Теорема",
+  [#h(indent) Теорема],
   titlefmt: strong,
   supplement: none,
   base_level: 1,
@@ -19,20 +25,20 @@
 
 #let corollary = thmplain(
   "corollary",
-  "Следствие",
+  [#h(indent) Следствие],
   base: "theorem",
   titlefmt: strong,
 )
 
 #let remark = thmplain(
   "remark",
-  "Замечание",
+  [#h(indent) Замечание],
   titlefmt: strong,
 ).with(numbering: none)
 
 #let lemma = thmbox(
   "lemma",
-  "Лемма",
+  [#h(indent) Лемма],
   titlefmt: strong,
   supplement: none,
   base_level: 1,
@@ -41,17 +47,17 @@
 
 #let proposition = thmbox(
   "proposition",
-  "Предложение",
+  [#h(indent) Предложение],
   titlefmt: strong,
   supplement: none,
   base_level: 1,
   //
 )
 
-#let proof = thmproof("proof", "Доказательство")
+#let proof = thmproof("proof", [#h(indent) Доказательство])
 #let definition = thmbox(
   "definition",
-  "Определение",
+  [#h(indent) Определение],
   base_level: 1, // take only the first level from the base
   titlefmt: strong,
   supplement: none,
@@ -70,7 +76,7 @@
 // }
 
 // indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
-#let indent = 1.25cm
+
 #let styled = [#set text(red)].func()
 #let space = [ ].func()
 #let sequence = [].func()
