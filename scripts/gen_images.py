@@ -110,7 +110,7 @@ def create_all_images(images_folder: Path) -> None:
         write_to("basic_network/plot.svg", img1.data)
 
         sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
-        img2 = basic_network.plot_with_states(sim1, max_node_width=0.3, scale=1.1)[0]
+        img2 = basic_network.plot_with_states(sim1, max_node_width=0.6, scale=1.1)[0]
         write_to("basic_network/sim.svg", img2.data)
 
     def gen_2() -> None:
@@ -277,7 +277,7 @@ def create_all_images(images_folder: Path) -> None:
         write_to("sponge_symmetrical_2_sim/2.svg", imgs[1].data)
 
     do_multiple(
-        # gen_1,
+        gen_1,
         # gen_2,
         # gen_3,
         # gen_4,

@@ -6,7 +6,7 @@
 #let theorem = thmbox(
   "theorem",
   "Теорема",
-  fill: rgb("#eeffee"),
+  titlefmt: strong,
   supplement: none,
   base_level: 1,
   //
@@ -28,7 +28,7 @@
 #let lemma = thmbox(
   "lemma",
   "Лемма",
-  fill: rgb("#eeffee"),
+  titlefmt: strong,
   supplement: none,
   base_level: 1,
   //
@@ -37,10 +37,8 @@
 #let proposition = thmbox(
   "proposition",
   "Предложение",
-  stroke: rgb("#68ff68") + 1pt,
+  titlefmt: strong,
   supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
   base_level: 1,
   //
 )
@@ -50,11 +48,8 @@
   "definition",
   "Определение",
   base_level: 1, // take only the first level from the base
-  stroke: rgb("#68ff68") + 1pt,
-  fill: rgb("#eeffee"),
+  titlefmt: strong,
   supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
 
@@ -70,7 +65,7 @@
 // }
 
 // indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
-#let indent = 1.25em
+#let indent = 1.25cm
 #let styled = [#set text(red)].func()
 #let space = [ ].func()
 #let sequence = [].func()
