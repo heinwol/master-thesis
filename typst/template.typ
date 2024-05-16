@@ -14,7 +14,7 @@
   padding: (top: 0em, bottom: 0em),
 )
 
-#let theorem = thmbox(
+#let theorem = thmplain(
   "theorem",
   [#h(indent) Теорема],
   titlefmt: strong,
@@ -36,7 +36,7 @@
   titlefmt: strong,
 ).with(numbering: none)
 
-#let lemma = thmbox(
+#let lemma = thmplain(
   "lemma",
   [#h(indent) Лемма],
   titlefmt: strong,
@@ -45,9 +45,9 @@
   //
 )
 
-#let proposition = thmbox(
-  "proposition",
-  [#h(indent) Предложение],
+#let claim = thmplain(
+  "claim",
+  [#h(indent) Утверждение],
   titlefmt: strong,
   supplement: none,
   base_level: 1,
@@ -55,7 +55,7 @@
 )
 
 #let proof = thmproof("proof", [#h(indent) Доказательство])
-#let definition = thmbox(
+#let definition = thmplain(
   "definition",
   [#h(indent) Определение],
   base_level: 1, // take only the first level from the base
