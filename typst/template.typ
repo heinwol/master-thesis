@@ -1,12 +1,23 @@
 #import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
 #import "@preview/sourcerer:0.2.1": code as code_
 
-#let code(..args) = code_(lang: "python", ..args)
+#let indent = 1.25cm
+
+#let code(..args) = code_(..args)
+
+#let thmbox = thmbox.with(
+  inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
+  padding: (top: 0em, bottom: 0em),
+)
+#let thmplain = thmplain.with(
+  inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
+  padding: (top: 0em, bottom: 0em),
+)
 
 #let theorem = thmbox(
   "theorem",
-  "Теорема",
-  fill: rgb("#eeffee"),
+  [#h(indent) Теорема],
+  titlefmt: strong,
   supplement: none,
   base_level: 1,
   //
@@ -14,21 +25,21 @@
 
 #let corollary = thmplain(
   "corollary",
-  "Следствие",
+  [#h(indent) Следствие],
   base: "theorem",
   titlefmt: strong,
 )
 
 #let remark = thmplain(
   "remark",
-  "Замечание",
+  [#h(indent) Замечание],
   titlefmt: strong,
 ).with(numbering: none)
 
 #let lemma = thmbox(
   "lemma",
-  "Лемма",
-  fill: rgb("#eeffee"),
+  [#h(indent) Лемма],
+  titlefmt: strong,
   supplement: none,
   base_level: 1,
   //
@@ -36,25 +47,20 @@
 
 #let proposition = thmbox(
   "proposition",
-  "Предложение",
-  stroke: rgb("#68ff68") + 1pt,
+  [#h(indent) Предложение],
+  titlefmt: strong,
   supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
   base_level: 1,
   //
 )
 
-#let proof = thmproof("proof", "Доказательство")
+#let proof = thmproof("proof", [#h(indent) Доказательство])
 #let definition = thmbox(
   "definition",
-  "Определение",
+  [#h(indent) Определение],
   base_level: 1, // take only the first level from the base
-  stroke: rgb("#68ff68") + 1pt,
-  fill: rgb("#eeffee"),
+  titlefmt: strong,
   supplement: none,
-  inset: (top: 0.7em, left: 1em, right: 1em, bottom: 0.7em),
-  padding: (top: 0em, bottom: 0em),
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
 
@@ -70,7 +76,7 @@
 // }
 
 // indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
-#let indent = 1.25em
+
 #let styled = [#set text(red)].func()
 #let space = [ ].func()
 #let sequence = [].func()
@@ -131,18 +137,19 @@
     lang: "ru",
     size: 14pt,
     // fallback: true,
-    // hyphenate: false,
+    hyphenate: false,
+    overhang: false,
   )
 
   // Set the basic page properties.
   set page(
     paper: "a4",
     number-align: center,
-    margin: (top: 10mm, bottom: 10mm, left: 30mm, right: 10mm),
+    margin: (top: 20.5mm, bottom: 20.5mm, left: 30.5mm, right: 10.5mm),
     numbering: "1",
     // footer: rect(fill: aqua)[Footer],
   )
-  counter(page).update(2)
+  counter(page).update(1)
 
   // Set the basic paragraph properties.
   set par(
@@ -190,7 +197,7 @@
   // set figure(supplement: "рис.")
 
   // see https://github.com/typst/typst/issues/311#issuecomment-1722331318
-  show regex("^!!"): context h(par.leading)
+  show regex("^\s*!!\s*"): context h(indent)
 
   show <nonum>: set heading(numbering: none)
   show <nonum>: set math.equation(numbering: none)

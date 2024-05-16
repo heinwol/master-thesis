@@ -73,3 +73,10 @@ export-with-date:
   #!/usr/bin/env nu
   let formated = $"Корешков диплом (date now | format date "%y-%m-%d_%H-%M-%S").pdf"
   cp ./typst/main.pdf $"($env.HOME)/Downloads/($formated)"
+
+gen-report-training:
+  #!/usr/bin/env nu
+  cd typst
+  pdftk main.pdf cat '~1' output temp.pdf
+  pdftk "../reports&etc/отчет практика.pdf" temp.pdf cat output "training_report.pdf"
+  rm temp.pdf

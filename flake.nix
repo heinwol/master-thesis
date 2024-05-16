@@ -131,6 +131,7 @@
           helix
           # libsForQt5.kdialog
           typst-lsp
+          pdftk
         ]);
       };
     in
