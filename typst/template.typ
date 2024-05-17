@@ -1,20 +1,79 @@
 #import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
 #import "@preview/sourcerer:0.2.1": code as code_
 
+// indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
 #let indent = 1.25cm
+#let styled = [#set text(red)].func()
+#let space = [ ].func()
+#let sequence = [].func()
 
+#let turn-on-first-line-indentation(
+  doc,
+  last-is-heading: false, // space and parbreak are ignored
+  indent-already-added: false,
+) = {
+  if doc.has("children") {
+    for (i, elem) in doc.children.enumerate() {
+      let element = elem.func()
+      if element == text {
+        let previous-elem = doc.children.at(i - 1)
+        if i == 0 or last-is-heading or previous-elem.func() == parbreak {
+          if not indent-already-added {
+            indent-already-added = true
+            h(indent)
+          }
+        }
+        elem
+      } else if element == heading {
+        indent-already-added = false
+        last-is-heading = true
+        elem
+      } else if element == space {
+        elem
+      } else if element == parbreak {
+        indent-already-added = false
+        elem
+      } else if element == sequence {
+        turn-on-first-line-indentation(
+          elem,
+          last-is-heading: last-is-heading,
+          indent-already-added: indent-already-added,
+        )
+      } else if element == styled {
+        styled(
+          turn-on-first-line-indentation(
+            elem.child,
+            last-is-heading: last-is-heading,
+            indent-already-added: indent-already-added,
+          ),
+          elem.styles,
+        )
+      } else {
+        indent-already-added = false
+        last-is-heading = false
+        elem
+      }
+    }
+  } else {
+    doc
+  }
+}
 #let code(..args) = code_(..args)
 
+// ------------
+
 #let thmbox = thmbox.with(
+  separator: [. #h(0.2em)],
   inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
   padding: (top: 0em, bottom: 0em),
 )
 #let thmplain = thmplain.with(
+  separator: [. #h(0.2em)],
   inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
   padding: (top: 0em, bottom: 0em),
 )
 
-#let theorem = thmbox(
+#let theorem = thmplain(
   "theorem",
   [#h(indent) Теорема],
   titlefmt: strong,
@@ -36,7 +95,7 @@
   titlefmt: strong,
 ).with(numbering: none)
 
-#let lemma = thmbox(
+#let lemma = thmplain(
   "lemma",
   [#h(indent) Лемма],
   titlefmt: strong,
@@ -45,9 +104,9 @@
   //
 )
 
-#let proposition = thmbox(
-  "proposition",
-  [#h(indent) Предложение],
+#let claim = thmplain(
+  "claim",
+  [#h(indent) Утверждение],
   titlefmt: strong,
   supplement: none,
   base_level: 1,
@@ -55,7 +114,7 @@
 )
 
 #let proof = thmproof("proof", [#h(indent) Доказательство])
-#let definition = thmbox(
+#let definition = thmplain(
   "definition",
   [#h(indent) Определение],
   base_level: 1, // take only the first level from the base
@@ -64,70 +123,21 @@
   // separator: none, //[#h(0.1em):#h(0.2em)],
 )
 
-#let with(func: function, ..k, content: content) = {
-  set func(..k)
-  content
+// -----------
+
+#let wrap-thm-with-indentation(env) = {
+  (..args, doc) => env(..args, turn-on-first-line-indentation(doc))
 }
 
-// #show terms: it => {
-//   for item in it.children {
-//     definition(item.term, item.description)
-//   }
-// }
+// #let theorem = wrap-thm-with-indentation(theorem)
+// #let corollary = wrap-thm-with-indentation(corollary)
+// #let remark = wrap-thm-with-indentation(remark)
+// #let claim = wrap-thm-with-indentation(claim)
+// #let lemma = wrap-thm-with-indentation(lemma)
+// #let proof = wrap-thm-with-indentation(proof)
+// #let definition = wrap-thm-with-indentation(definition)
 
-// indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
-
-#let styled = [#set text(red)].func()
-#let space = [ ].func()
-#let sequence = [].func()
-
-#let turn-on-first-line-indentation(
-  doc,
-  last-is-heading: false, // space and parbreak are ignored
-  indent-already-added: false,
-) = {
-  for (i, elem) in doc.children.enumerate() {
-    let element = elem.func()
-    if element == text {
-      let previous-elem = doc.children.at(i - 1)
-      if i == 0 or last-is-heading or previous-elem.func() == parbreak {
-        if not indent-already-added {
-          indent-already-added = true
-          h(indent)
-        }
-      }
-      elem
-    } else if element == heading {
-      indent-already-added = false
-      last-is-heading = true
-      elem
-    } else if element == space {
-      elem
-    } else if element == parbreak {
-      indent-already-added = false
-      elem
-    } else if element == sequence {
-      turn-on-first-line-indentation(
-        elem,
-        last-is-heading: last-is-heading,
-        indent-already-added: indent-already-added,
-      )
-    } else if element == styled {
-      styled(
-        turn-on-first-line-indentation(
-          elem.child,
-          last-is-heading: last-is-heading,
-          indent-already-added: indent-already-added,
-        ),
-        elem.styles,
-      )
-    } else {
-      indent-already-added = false
-      last-is-heading = false
-      elem
-    }
-  }
-}
+// -----------
 
 #let template(body) = {
   // set document(author: "dds", title: "ds")
@@ -159,14 +169,13 @@
     // hanging-indent: 1.25em,
   )
 
-  // block spacing
-  // set block(spacing: 3.65em,)
+  set linebreak(justify: true)
 
   // Additionally styling for list.
   set enum(indent: 0.5cm)
   set list(indent: 0.5cm)
 
-  set heading(numbering: "1.1.")
+  set heading(numbering: "1.1")
   show heading: set align(center)
   show heading: it => {
     it
@@ -188,8 +197,16 @@
   set math.equation(supplement: none)
   show math.cases: set align(left)
 
+  set ref(supplement: it => {
+    if it.func() == figure {
+      "рис."
+    } else {
+      it.supplement
+    }
+  })
 
-  show figure.caption: set text(size: 0.8em)
+  set grid(column-gutter: 5pt)
+
   show figure.caption: set par(leading: 1em)
 
   // show figure.where(kind: 1): ""
