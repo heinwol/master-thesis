@@ -1,6 +1,6 @@
 .direnv
 result*
-typst/main.pdf
+typst/temp.typ
 *.pdf
 ignored
 /assets/generated
