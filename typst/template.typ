@@ -159,8 +159,7 @@
     // hanging-indent: 1.25em,
   )
 
-  // block spacing
-  // set block(spacing: 3.65em,)
+  set linebreak(justify: true)
 
   // Additionally styling for list.
   set enum(indent: 0.5cm)
