@@ -6,3 +6,6 @@
 # 	path = sponge-networks
 # 	url = https://github.com/heinwol/sponge-networks
 # 	branch = main
+[submodule "literature/schema"]
+	path = literature/schema
+	url = https://github.com/citation-style-language/schema
