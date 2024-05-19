@@ -505,6 +505,13 @@ $
   // #show regex("с\.\s*"): "с." + nbsp
   #show regex("СТР"): "с." //+ nbsp
 
+  // HAHAHA, that's a dirty hack, but works in simple cases
+  #let re = regex(`#([\w\d\-_]+)\[(.+)\]`.text)
+  #show re: it => {
+    let (func, text) = it.text.match(re).captures
+    eval("#" + func + "[" + text + "]", mode: "markup")
+  }
+
   #let re = regex(`(\d+)–(\d+)`.text)
   #show re: it => {
     let (l, r) = it.text.match(re).captures
