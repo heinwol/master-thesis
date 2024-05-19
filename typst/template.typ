@@ -158,7 +158,7 @@
     numbering: "1",
     // footer: rect(fill: aqua)[Footer],
   )
-  counter(page).update(1)
+  counter(page).update(2)
 
   // Set the basic paragraph properties.
   set par(
