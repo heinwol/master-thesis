@@ -172,23 +172,30 @@
   <macro name="access">
     <!-- only for webpages and post-weblogs -->
     <choose>
-      <if type="webpage post-weblog" match="any">
-        <choose>
-          <if variable="URL">
-            <text variable="URL" prefix="URL: " />
-            <group prefix=" (" suffix=")" delimiter=": ">
-              <text term="accessed" />
-              <!-- localized date is not used here, since we prefer the Russian date style for
+      <!-- <if type="webpage post-weblog" match="any"> -->
+      <!-- <choose> -->
+      <if variable="accessed">
+        <text variable="URL" prefix="URL: " />
+        <group prefix=" (" suffix=")" delimiter=": ">
+          <text term="accessed" />
+          <!-- localized date is not used here, since we prefer the Russian date style for
               entries of all languages -->
-              <date variable="accessed">
-                <date-part name="day" suffix="." form="numeric-leading-zeros" />
-                <date-part name="month" suffix="." form="numeric-leading-zeros" />
-                <date-part name="year" />
-              </date>
-            </group>
-          </if>
-        </choose>
+          <date variable="accessed">
+            <date-part name="day" suffix="." form="numeric-leading-zeros" />
+            <date-part name="month" suffix="." form="numeric-leading-zeros" />
+            <date-part name="year" />
+          </date>
+        </group>
+        <!-- </if> -->
+        <!-- </choose> -->
       </if>
+      <else>
+        <date variable="accessed" suffix=", ">
+          <date-part name="month" suffix=" " />
+          <date-part name="day" suffix=", " />
+          <date-part name="year" />
+        </date>
+      </else>
     </choose>
   </macro>
   <macro name="doi">

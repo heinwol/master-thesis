@@ -4,7 +4,8 @@
         "submodules",
         ".direnv",
         "result",
-        ".nix-env"
+        ".nix-env",
+        "literature/schema"
     ],
     "cSpell.enabled": true,
     "cSpell.language": "ru,en",

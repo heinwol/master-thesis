@@ -62,16 +62,15 @@
 
 // ------------
 
-#let thmbox = thmbox.with(
+#let default_thm_args = arguments(
   separator: [. #h(0.2em)],
   inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
   padding: (top: 0em, bottom: 0em),
 )
-#let thmplain = thmplain.with(
-  separator: [. #h(0.2em)],
-  inset: (top: 0.2em, left: 0em, right: 0em, bottom: 0.2em),
-  padding: (top: 0em, bottom: 0em),
-)
+
+#let thmbox = thmbox.with(..default_thm_args)
+#let thmplain = thmplain.with(..default_thm_args)
+#let thmproof = thmproof.with(..default_thm_args)
 
 #let theorem = thmplain(
   "theorem",
