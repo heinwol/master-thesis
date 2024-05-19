@@ -497,13 +497,8 @@ $
 
 //  функционирование губковых сетей с
 
-// TODO:
-// - сослаться на монографию а не на работу 2013 года ЖИЛЯКОВА РЕСУРСНЫЕ СЕТИ...
 #[
   #let nbsp = sym.space.nobreak
-  #show regex("№\s*"): "№" + nbsp
-  // #show regex("с\.\s*"): "с." + nbsp
-  #show regex("СТР"): "с." //+ nbsp
 
   // HAHAHA, that's a dirty hack, but works in simple cases
   #let re = regex(`#([\w\d\-_]+)\[(.+)\]`.text)

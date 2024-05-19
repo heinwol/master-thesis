@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-model href="schema/schemas/styles/csl.rnc"?>
+<!-- <?xml-model href="schema/schemas/styles/csl.rnc"?> -->
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" default-locale="ru-RU" version="1.0"
   demote-non-dropping-particle="sort-only" page-range-format="expanded">
   <info>
@@ -38,6 +38,8 @@
       <!-- using completely irrelevant term to localize "pat." -->
       <term name="editor" form="verb-short">ed.</term>
       <term name="translator" form="verb-short">trans.</term>
+      <term name="page" form="short">pp.</term>
+      <term name="number-of-pages" form="short">p.</term>
     </terms>
   </locale>
   <locale xml:lang="ru">
@@ -52,7 +54,8 @@
       простого определения, но в принципе это должно полностью определяться локалью, включая род
       терминов -->
       <term name="ordinal">-е</term>
-      <term name="page" form="short">СТР</term>
+      <term name="page" form="short">С.</term>
+      <term name="number-of-pages" form="short">с.</term>
     </terms>
   </locale>
   <!-- Macros -->
@@ -145,11 +148,11 @@
   <macro name="locators">
     <!-- volume and issue -->
     <group delimiter=", ">
-      <group delimiter=" ">
+      <group delimiter=" ">
         <text term="volume" form="short" text-case="sentence" />
         <text variable="volume" />
       </group>
-      <group delimiter=" ">
+      <group delimiter=" ">
         <text term="issue" form="symbol" />
         <text variable="issue" />
       </group>
@@ -159,11 +162,11 @@
     <!-- it is assumed that fields "page" and "# of Pages" do not exist simultaneously -->
     <group delimiter="">
       <label variable="page" form="short" text-case="sentence" plural="never" />
-      <text variable="page" />
+      <text variable="page" display="right-inline" />
     </group>
-    <group delimiter="">
+    <group delimiter=" ">
       <text variable="number-of-pages" />
-      <text term="page" form="short" />
+      <text term="number-of-pages" form="short" />
     </group>
   </macro>
   <macro name="access">
@@ -188,6 +191,13 @@
       </if>
     </choose>
   </macro>
+  <macro name="doi">
+    <group delimiter=": ">
+      <text value="DOI" />
+      <text variable="DOI" />
+    </group>
+  </macro>
+
   <!-- Citation -->
   <citation collapse="citation-number">
     <sort>
@@ -245,6 +255,8 @@
         <text macro="locators" />
         <text macro="page" />
         <text macro="access" />
+        <text macro="doi" />
+        <text value="." />
         <!-- URL -->
       </group>
     </layout>
