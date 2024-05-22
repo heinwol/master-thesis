@@ -9,5 +9,8 @@
 - какой-то темплейт для тезиса https://github.com/Dherse/masterproef/blob/main/masterproef/ugent-template.typ
 - 
 
-## Useful commands:
+---
 
+## Презентация
+
+- добавить про актуальность
