@@ -76,7 +76,22 @@ export-with-date:
 
 gen-report-training:
   #!/usr/bin/env nu
+  let branch = git branch --show-current
+  git checkout training
+  typst compile --root . typst/main.typ
   cd typst
   pdftk main.pdf cat '~1' output temp.pdf
   pdftk "../reports&etc/отчет практика.pdf" temp.pdf cat output "training_report.pdf"
   rm temp.pdf
+  git checkout $branch
+
+gen-research-report:
+  #!/usr/bin/env nu
+  let branch = git branch --show-current
+  git checkout research-report
+  typst compile --root . typst/main.typ
+  cd typst
+  pdftk main.pdf cat '~1' output temp.pdf
+  pdftk "../reports&etc/НИР титульник.pdf" temp.pdf cat output "research_report.pdf"
+  rm temp.pdf
+  git checkout $branch
