@@ -48,10 +48,10 @@
       # new-pandoc = pkgs.pandoc;
       new-pandoc = pkgs.stdenv.mkDerivation (attrs: rec {
         name = "pandoc-bin";
-        version = "3.1.13";
+        version = "3.2";
         src = pkgs.fetchurl {
           url = "https://github.com/jgm/pandoc/releases/download/${version}/pandoc-${version}-linux-amd64.tar.gz";
-          hash = "sha256-21VsmM8gfS/dwIjRLS4vNn2UAXhNSj6RSwaPqJXc8/A=";
+          hash = "sha256-6j+W3eVq4Vd8gRhGlLhXbY7+xS4WjOSabn3xRB9Cgok=";
         };
         buildInputs = with pkgs; [ gnutar makeWrapper ];
         installPhase = ''
