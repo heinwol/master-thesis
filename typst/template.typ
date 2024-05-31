@@ -195,6 +195,12 @@
   )
   set math.equation(supplement: none)
   show math.cases: set align(left)
+  // show math.colon: math.class("punctuation", math.colon)
+  show math.equation: e => {
+    show math.colon: $math.class("punctuation", math.colon) thin$
+    e
+  }
+
 
   set ref(supplement: it => {
     if it.func() == figure {

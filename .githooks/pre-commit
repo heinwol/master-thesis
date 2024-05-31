@@ -1,1 +1,2 @@
 typstyle -i typst/main.typ
+typstyle -i typst/template.typ
