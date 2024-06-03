@@ -198,7 +198,7 @@
   // show math.colon: math.class("punctuation", math.colon)
   show math.equation: e => {
     show math.colon: $math.class("punctuation", math.colon) thin$
-    e
+    box(e)
   }
 
 
