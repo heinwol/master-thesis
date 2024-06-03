@@ -721,8 +721,8 @@ $
     Наша логика будет во многом повторять ту, что использовалась в теореме @th:sym. Для начала, предположим, что сеть прямоугольная или же треугольная с четным количеством столбцов. Рассмотрим снова уровни $V_i$ сети $quo("SN", eqcyl)$. На сей раз $Gen_G (V_i)$ представляют из себя не простые пути, а простые циклы на $tilde(m) - 1$ вершине. Известно, что группа симметрий простого цикла на $tilde(m) - 1$ вершине есть $D_(tilde(m) - 1)$. Такая группа соответствует $Aut(Gen_G (V_i))$ для каждого $i$. При попытке "соединить" указанные слои мы снова приходим к выводу, что
 
     $
-    forall Phi_i in Aut(Gen_G (V_i)) sp exists! Phi_(i-1) in Aut(Gen_G (V_(i-1))): \
-    Phi_i union.sq Phi_(i-1) in Aut(Gen_G (V_i union V_(i-1))).
+      forall Phi_i in Aut(Gen_G (V_i)) sp exists! Phi_(i-1) in Aut(Gen_G (V_(i-1))): \
+      Phi_i union.sq Phi_(i-1) in Aut(Gen_G (V_i union V_(i-1))).
     $ <nonum>
 
     Так мы проходимся по каждой паре соседствующих слоев и устанавливаем, что, вообще, для каждого $i$ каждая симметрия $Phi_i in Aut(Gen_G (V_i))$ однозначно определяет симметрию всего графа $G$. Стало быть, $Aut(quo("SN", eqcyl)) tilde.equiv D_(tilde(m) - 1)$.
@@ -970,4 +970,57 @@ $ q^0 = #state. $ <nonum>
     style: "../literature/gost-r-7-0-5-2008-numeric.csl",
   )
 ]
-\
+
+= ПРИЛОЖЕНИЕ А <nonum>
+
+Ниже представлены примеры функционала, реализованного в библиотеке `sponge-networks` (обозначается в коде как `sn`).
+
+#figure(
+  caption: [Пример создания ресурсной сети из матрицы смежности с помощью модуля `networkx`, проведения одной итерации симуляции и получения результата в виде svg-изображения.],
+  code(
+    ```python
+    basic_network = sn.ResourceNetwork[int](
+        nx.from_numpy_array(
+            np.array(
+                [
+                    [0, 3, 1],
+                    [4, 1, 0],
+                    [2, 2, 0],
+                ]
+            ),
+            create_using=nx.DiGraph,
+        )
+    )
+    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
+    img2 = basic_network.plot_with_states(
+      sim1, max_node_width=0.6, scale=1.1
+    )[0]
+    img2
+    ```
+  )
+) // <lst:basic_network>
+
+#figure(
+  caption: [Пример создания губковой сети на цилиндре из обыкновенной губковой сети и получение svg-изображения этой сети.],
+  code(
+    ```python
+    nw = sn.build_sponge_network(
+        grid_type="hexagonal", n_cols=4, n_rows=2,
+        layout={
+            "weights_sink_edge": 1,
+            "weights_loop": 1,
+            "weights_horizontal": 2,
+            "weights_up_down": 5,
+            "weights_down_up": 1,
+            "generate_sinks": True,
+        },
+        visual_sink_edge_length=0.7
+    )
+    (sn
+        .quotient_sponge_network_on_cylinder(nw)
+        .quotient_network
+        .plot(scale=1.)
+    )
+    ```
+  )
+)
