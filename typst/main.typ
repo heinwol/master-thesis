@@ -977,50 +977,46 @@ $ q^0 = #state. $ <nonum>
 
 #figure(
   caption: [Пример создания ресурсной сети из матрицы смежности с помощью модуля `networkx`, проведения одной итерации симуляции и получения результата в виде svg-изображения.],
-  code(
-    ```python
-    basic_network = sn.ResourceNetwork[int](
-        nx.from_numpy_array(
-            np.array(
-                [
-                    [0, 3, 1],
-                    [4, 1, 0],
-                    [2, 2, 0],
-                ]
-            ),
-            create_using=nx.DiGraph,
-        )
-    )
-    sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
-    img2 = basic_network.plot_with_states(
-      sim1, max_node_width=0.6, scale=1.1
-    )[0]
-    img2
-    ```
+  code(```python
+  basic_network = sn.ResourceNetwork[int](
+      nx.from_numpy_array(
+          np.array(
+              [
+                  [0, 3, 1],
+                  [4, 1, 0],
+                  [2, 2, 0],
+              ]
+          ),
+          create_using=nx.DiGraph,
+      )
   )
+  sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
+  img2 = basic_network.plot_with_states(
+    sim1, max_node_width=0.6, scale=1.1
+  )[0]
+  img2
+  ```),
 ) // <lst:basic_network>
 
 #figure(
   caption: [Пример создания губковой сети на цилиндре из обыкновенной губковой сети и получение svg-изображения этой сети.],
-  code(
-    ```python
-    nw = sn.build_sponge_network(
-        grid_type="hexagonal", n_cols=4, n_rows=2,
-        layout={
-            "weights_sink_edge": 1,
-            "weights_loop": 1,
-            "weights_horizontal": 2,
-            "weights_up_down": 5,
-            "weights_down_up": 1,
-            "generate_sinks": True,
-        },
-        visual_sink_edge_length=0.7
-    )
-    (sn
-        .quotient_sponge_network_on_cylinder(nw)
-        .quotient_network
-        .plot(scale=1.)
-    )
-    ```
+  code(```python
+  nw = sn.build_sponge_network(
+      grid_type="hexagonal", n_cols=4, n_rows=2,
+      layout={
+          "weights_sink_edge": 1,
+          "weights_loop": 1,
+          "weights_horizontal": 2,
+          "weights_up_down": 5,
+          "weights_down_up": 1,
+          "generate_sinks": True,
+      },
+      visual_sink_edge_length=0.7
   )
+  (sn
+      .quotient_sponge_network_on_cylinder(nw)
+      .quotient_network
+      .plot(scale=1.)
+  )
+  ```),
 )

@@ -1,2 +1,10 @@
-typstyle -i typst/main.typ
-typstyle -i typst/template.typ
+#!/usr/bin/env nu
+
+let changed = (git diff --cached --name-only | lines | each { str trim })
+
+for fp in $changed {
+    if ($fp | path parse | $in.extension) == "typ" {
+        typstyle -i $fp
+        git add $fp
+    }
+}
