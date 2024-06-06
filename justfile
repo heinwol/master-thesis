@@ -71,8 +71,9 @@ convert-and-replace:
 
 export-with-date:
   #!/usr/bin/env nu
+  just gen-thesis
   let formated = $"Корешков диплом (date now | format date "%y-%m-%d_%H-%M-%S").pdf"
-  cp ./typst/main.pdf $"($env.HOME)/Downloads/($formated)"
+  cp ./typst/thesis.pdf $"($env.HOME)/Downloads/($formated)"
 
 gen-report-training:
   #!/usr/bin/env nu
@@ -93,5 +94,16 @@ gen-research-report:
   cd typst
   pdftk main.pdf cat '~1' output temp.pdf
   pdftk "../reports&etc/НИР титульник.pdf" temp.pdf cat output "research_report.pdf"
+  rm temp.pdf
+  git checkout $branch
+
+gen-thesis:
+  #!/usr/bin/env nu
+  let branch = git branch --show-current
+  git checkout main
+  typst compile --root . typst/main.typ
+  cd typst
+  pdftk main.pdf cat '~1' output temp.pdf
+  pdftk "../reports&etc/Титульник.pdf" temp.pdf cat output "thesis.pdf"
   rm temp.pdf
   git checkout $branch
