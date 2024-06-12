@@ -21,7 +21,7 @@ gen-assets:
 
 gen-assets-dev:
   #!/usr/bin/env nu
-  let python = "~/Documents/work/ipu/sponge_networks/.nix-env/bin/python"
+  let python = $"($env.HOME)/Documents/work/ipu/sponge_networks/.nix-env/bin/python"
   try {
     run-external $python scripts/gen_images.py
     notify-send 'task: assets: DONE'

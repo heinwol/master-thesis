@@ -9,11 +9,11 @@ sys.path.append(
     f"{os.environ.get('SN_DIR')}"
 )  # just for the sake of using this script inside sponge_networks
 
-from typing import Annotated, Any, Callable, Optional, TypedDict
+from typing import Annotated, Any, Callable, Optional, Self, TypedDict
 from typing_extensions import override
 import sponge_networks as sn
 from sponge_networks.utils.utils import do_multiple
-from sponge_networks.display import scale_graph_pos
+from sponge_networks.display import DrawableGraph, scale_graph_pos
 from functools import partial
 import typer
 import networkx as nx
@@ -79,13 +79,54 @@ some_sponge_network_without_sinks = build_typical(
 )
 
 
-class WithEdges(sn.display.DrawableGraphWithContext[sn.display.JustDrawableContext]):
+@dataclass
+class FontPos(sn.display.JustDrawableConfig):
+    fontsize: Optional[float] = None
+    scale_graph_pos_factor: Optional[float] = None
+
     @override
-    def property_setter(self) -> None:
-        G = self.drawing_graph
-        G.graph["edge"]["fontcolor"] = "red"
-        G.graph["edge"]["fontsize"] = self.display_context.scale * 12
-        scale_graph_pos(G, 0.8)
+    def property_setter(self, drawable: DrawableGraph) -> None:
+        G = drawable.drawing_graph
+        if self.fontsize:
+            G.graph["node"]["fontsize"] = self.fontsize
+            G.graph["edge"]["fontsize"] = self.fontsize
+        if self.scale_graph_pos_factor:
+            scale_graph_pos(G, self.scale_graph_pos_factor)
+
+    @override
+    @classmethod
+    def generate_default_config(cls) -> Self:
+        sdi = sn.display.JustDrawableConfig.default_instance()
+        return cls(
+            fontsize=None,
+            scale_graph_pos_factor=None,
+            **(asdict(sdi)),
+        )
+
+
+@dataclass
+class FontPosSim(sn.display.SimulationWithChangingWidthConfig):
+    fontsize: Optional[float] = None
+    scale_graph_pos_factor: Optional[float] = None
+
+    @override
+    def property_setter(self, drawable: DrawableGraph) -> None:
+        G = drawable.drawing_graph
+        if self.fontsize:
+            G.graph["node"]["fontsize"] = self.fontsize
+            G.graph["edge"]["fontsize"] = self.fontsize
+        if self.scale_graph_pos_factor:
+            scale_graph_pos(G, self.scale_graph_pos_factor)
+
+    @override
+    @classmethod
+    def generate_default_config(cls) -> Self:
+        sdi = sn.display.SimulationWithChangingWidthConfig.default_instance()
+        return cls(
+            fontsize=None,
+            scale_graph_pos_factor=None,
+            **(asdict(sdi)),
+        )
 
 
 def process_all_generation(funcs: list[Callable[[], None]]) -> None:
@@ -106,25 +147,46 @@ def create_all_images(images_folder: Path) -> None:
     write_to = partial(write_img, images_folder)
 
     def gen_1() -> None:
-        img1 = basic_network.plot(scale=1.2, prop_setter=WithEdges)
+        img1 = basic_network.plot(
+            scale=1.0,
+            prop_setter=FontPos(
+                fontsize=16,
+                scale_graph_pos_factor=0.4,
+            ),
+        )
         write_to("basic_network/plot.svg", img1.data)
 
         sim1 = basic_network.run_simulation([8, 1, 0], n_iters=1)
-        img2 = basic_network.plot_with_states(sim1, max_node_width=0.6, scale=1.1)[0]
+        img2 = basic_network.plot_with_states(
+            sim1,
+            max_node_width=0.6,
+            scale=1.0,
+            prop_setter=FontPosSim(
+                fontsize=14,
+                scale_graph_pos_factor=0.9,
+            ),
+        )[0]
         write_to("basic_network/sim.svg", img2.data)
 
     def gen_2() -> None:
         sim = stop_network.run_simulation([4, 4, 0, 0], n_iters=10)
-        imgs = stop_network.plot_with_states(sim.sliced[0, -1])
+        imgs = stop_network.plot_with_states(
+            sim.sliced[0, -1],
+            prop_setter=FontPosSim(fontsize=14, scale_graph_pos_factor=0.7),
+        )
         write_to("stop_network/sim1.svg", imgs[0].data)
         write_to("stop_network/sim2.svg", imgs[-1].data)
 
     def gen_3() -> None:
-        img = some_sponge_network.resource_network.plot(scale=1.4)
+        img = some_sponge_network.resource_network.plot(
+            scale=1.5, prop_setter=FontPos(fontsize=15)
+        )
         write_to("some_sponge_network/plot.svg", img.data)
 
     def gen_4() -> None:
-        img = some_sponge_network_without_sinks.resource_network.plot(scale=1.4)
+        img = some_sponge_network_without_sinks.resource_network.plot(
+            scale=1.5, prop_setter=FontPos(fontsize=15)
+        )
         write_to("some_sponge_network_without_sinks/plot.svg", img.data)
 
     def gen_5() -> None:
@@ -138,7 +200,11 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "triangular", "n_cols": 5, "n_rows": 3}
         )
         img = nw_triangular.resource_network.plot(
-            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+            scale=1.5,
+            prop_setter=FontPos(
+                fontsize=14,
+                scale_graph_pos_factor=0.8,
+            ),
         )
         write_to("network_types_example/triangular.svg", img.data)
 
@@ -146,7 +212,11 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "hexagonal", "n_cols": 4, "n_rows": 2}
         )
         img = nw_hexagonal.resource_network.plot(
-            scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.9)
+            scale=1.6,
+            prop_setter=FontPos(
+                fontsize=17,
+                scale_graph_pos_factor=0.8,
+            ),
         )
         write_to("network_types_example/hexagonal.svg", img.data)
 
@@ -155,7 +225,11 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "triangular", "n_cols": 4, "n_rows": 2}
         )
         img = nw_triangular.resource_network.plot(
-            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+            scale=1.4,
+            prop_setter=FontPos(
+                fontsize=14,
+                scale_graph_pos_factor=0.8,
+            ),
         )
         write_to("network_types_example_sym/triangular.svg", img.data)
 
@@ -163,7 +237,11 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "hexagonal", "n_cols": 3, "n_rows": 2}
         )
         img = nw_hexagonal.resource_network.plot(
-            scale=1.4, prop_setter=partial(scale_graph_pos, scale=0.9)
+            scale=1.4,
+            prop_setter=FontPos(
+                fontsize=14,
+                scale_graph_pos_factor=0.8,
+            ),
         )
         write_to("network_types_example_sym/hexagonal.svg", img.data)
 
@@ -171,7 +249,11 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "triangular", "n_cols": 1, "n_rows": 5}
         )
         img = nw_triangular_single.resource_network.plot(
-            scale=1.4, prop_setter=partial(scale_graph_pos, scale=1)
+            scale=1.4,
+            prop_setter=FontPos(
+                fontsize=14,
+                scale_graph_pos_factor=0.8,
+            ),
         )
         write_to("network_types_example_sym/triangular_single.svg", img.data)
 
@@ -184,7 +266,10 @@ def create_all_images(images_folder: Path) -> None:
         imgs = qn.quotient_network.plot_with_states(
             sim_q,
             scale=1.2,
-            prop_setter=partial(scale_graph_pos, scale=1),
+            prop_setter=FontPosSim(
+                fontsize=14,
+                scale_graph_pos_factor=0.9,
+            ),
             max_node_width=0.7,
         )
         write_to("qn_1/1.svg", imgs[0].data)
@@ -194,7 +279,7 @@ def create_all_images(images_folder: Path) -> None:
         nw = build_typical({"grid_type": "triangular", "n_cols": 6, "n_rows": 2})
         qn = sn.quotient_sponge_network_on_cylinder(nw)
 
-        img = qn.quotient_network.plot(scale=1.2)
+        img = qn.quotient_network.plot(scale=1.2, prop_setter=FontPos(fontsize=14))
         write_to("cylinder_triangular_1/plot.svg", img.data)
 
         sim_q = qn.quotient_sponge_network.run_sponge_simulation(
@@ -204,7 +289,7 @@ def create_all_images(images_folder: Path) -> None:
         imgs = qn.quotient_network.plot_with_states(
             first_and_last,
             scale=1.2,
-            prop_setter=partial(scale_graph_pos, scale=1),
+            prop_setter=FontPosSim(fontsize=14),
             max_node_width=1,
         )
         write_to("cylinder_triangular_1/1.svg", imgs[0].data)
@@ -214,7 +299,7 @@ def create_all_images(images_folder: Path) -> None:
         nw = build_typical({"grid_type": "triangular", "n_cols": 5, "n_rows": 2})
         qn = sn.quotient_sponge_network_on_cylinder(nw)
 
-        img = qn.quotient_network.plot(scale=1.2)
+        img = qn.quotient_network.plot(scale=1.2, prop_setter=FontPos(fontsize=14))
         write_to("cylinder_triangular_2/plot.svg", img.data)
 
     def gen_11() -> None:
@@ -272,18 +357,22 @@ def create_all_images(images_folder: Path) -> None:
         qn = sn.quotient_sponge_network_on_cylinder(nw)
         sim_q = qn.quotient_sponge_network.run_sponge_simulation([12, 0, 12, 0, 12, 0])
         sim_ = sim_q.sliced[0, 3]
-        imgs = qn.quotient_network.plot_with_states(sim_, scale=1.4)
+        imgs = qn.quotient_network.plot_with_states(
+            sim_,
+            scale=1.4,
+            prop_setter=FontPosSim(fontsize=17, scale_graph_pos_factor=0.8),
+        )
         write_to("sponge_symmetrical_2_sim/1.svg", imgs[0].data)
         write_to("sponge_symmetrical_2_sim/2.svg", imgs[1].data)
 
     do_multiple(
-        gen_1,
+        # gen_1,
         # gen_2,
         # gen_3,
         # gen_4,
         # gen_5,
         # gen_6,
-        # gen_7,
+        gen_7,
         # gen_8,
         # gen_9,
         # gen_10,
