@@ -158,7 +158,7 @@
     numbering: "1",
     // footer: rect(fill: aqua)[Footer],
   )
-  counter(page).update(5)
+  counter(page).update(1)
 
   // Set the basic paragraph properties.
   set par(
@@ -185,6 +185,10 @@
     it
   }
   show heading.where(level: 3): set heading(numbering: none, outlined: false)
+
+  // show math.equation: set text(font: "New Computer Modern Math", fallback: false)
+  // show math.equation: context repr(bold.font) //set text(font: "Arial", fallback: false)
+  // show raw: set text(font: "Fira Code")
 
   set math.equation( //
     numbering: (num =>

@@ -71,7 +71,7 @@ convert-and-replace:
 
 export-with-date:
   #!/usr/bin/env nu
-  just gen-thesis
+  just gen-thesis-without-task
   let formated = $"Корешков диплом (date now | format date "%y-%m-%d_%H-%M-%S").pdf"
   cp ./typst/thesis.pdf $"($env.HOME)/Downloads/($formated)"
 
@@ -97,13 +97,16 @@ gen-research-report:
   rm temp.pdf
   git checkout $branch
 
-gen-thesis:
+gen-thesis-without-task no_compile="false":
   #!/usr/bin/env nu
   let branch = git branch --show-current
-  git checkout main
-  typst compile --root . typst/main.typ
+  if $branch != "main" { git checkout main }
+  if {{no_compile}} != "false" {
+    typst compile --root . typst/main.typ
+  }
   cd typst
   pdftk main.pdf cat '~1' output temp.pdf
-  pdftk "../reports&etc/Титульник.pdf" temp.pdf cat output "thesis.pdf"
-  rm temp.pdf
-  git checkout $branch
+  pdftk "../reports&etc/Титульник.pdf" cat '1' output temp2.pdf
+  pdftk temp2.pdf temp.pdf cat output thesis.pdf
+  rm temp*.pdf
+  if $branch != "main" { git checkout $branch }

@@ -172,7 +172,7 @@ def create_all_images(images_folder: Path) -> None:
         sim = stop_network.run_simulation([4, 4, 0, 0], n_iters=10)
         imgs = stop_network.plot_with_states(
             sim.sliced[0, -1],
-            prop_setter=FontPosSim(fontsize=14, scale_graph_pos_factor=0.7),
+            prop_setter=FontPosSim(fontsize=11, scale_graph_pos_factor=0.9),
         )
         write_to("stop_network/sim1.svg", imgs[0].data)
         write_to("stop_network/sim2.svg", imgs[-1].data)
@@ -367,12 +367,12 @@ def create_all_images(images_folder: Path) -> None:
 
     do_multiple(
         # gen_1,
-        # gen_2,
+        gen_2,
         # gen_3,
         # gen_4,
         # gen_5,
         # gen_6,
-        gen_7,
+        # gen_7,
         # gen_8,
         # gen_9,
         # gen_10,
