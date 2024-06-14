@@ -4,5 +4,8 @@ typst/temp.typ
 *.pdf
 ignored
 /assets/generated
+/assets/converted
 .nix-env
 ~$*
+.~*#
+.img_cache
