@@ -653,9 +653,7 @@ $ <nonum>
   - Ребра $E'$ и веса $w'$ графа $G'$ определяются следующим образом. \ $forall esq(u) in quo(V, ~), forall esq(v) in quo(V, ~)$:
     - $(exists u in esq(u) : (u, u) in E) <=> (esq(u), esq(u)) in E';$ тогда
 
-    $
-      w'((esq(u), esq(u))) = "avg"{w((u, u)) | (u, u) in E and u in esq(u)}.
-    $ <nonum>
+    $w'((esq(u), esq(u))) = "avg"{w((u, u)) | (u, u) in E and u in esq(u)}.$
 
     Здесь $"avg" X$ есть среднее арифметическое элементов множества чисел $X$;
 
@@ -1003,6 +1001,8 @@ $ q^0 = #state2. $ <nonum>
     [#nbsp#box[#l–#r]]
   }
 
+  #set par(hanging-indent: -0.95cm)
+
   #bibliography(
     "../literature/sn_literature.bib",
     title: [СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ],
@@ -1038,7 +1038,7 @@ $ q^0 = #state2. $ <nonum>
 ) // <lst:basic_network>
 
 #figure(
-  caption: [Пример создания губковой сети на цилиндре из обыкновенной губковой сети и получение svg-изображения этой сети.],
+  caption: [Пример создания губковой сети на цилиндре из обыкновенной #h(2em) губковой сети и получение svg-изображения этой сети.],
   code(```python
   nw = sn.build_sponge_network(
       grid_type="hexagonal", n_cols=4, n_rows=2,

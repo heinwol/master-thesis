@@ -171,8 +171,8 @@
   set linebreak(justify: true)
 
   // Additionally styling for list.
-  set enum(indent: 0.5cm)
-  set list(indent: 0.5cm)
+  set enum(indent: 0cm)
+  set list(indent: 0cm)
 
   set heading(numbering: "1.1")
   show heading: set align(center)
