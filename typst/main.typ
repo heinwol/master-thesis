@@ -697,7 +697,7 @@ $ <nonum>
 ) <fig:qn_1_1>
 
 #figure(
-  caption: box(stroke: black)[Та же сеть в момент времени $t = 1$.],
+  caption: [Та же сеть в момент времени $t = 1$.],
   generated_image("qn_1/2")(),
 ) <fig:qn_1_2>
 
