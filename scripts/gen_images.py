@@ -88,10 +88,10 @@ class FontPos(sn.display.JustDrawableConfig):
     def property_setter(self, drawable: DrawableGraph) -> None:
         G = drawable.drawing_graph
         if self.fontsize:
-            G.graph["node"]["fontsize"] = self.fontsize
-            G.graph["edge"]["fontsize"] = self.fontsize
+            G.graph["node"]["fontsize"] = self.fontsize * 0.8
+            G.graph["edge"]["fontsize"] = self.fontsize * 0.8
         if self.scale_graph_pos_factor:
-            scale_graph_pos(G, self.scale_graph_pos_factor)
+            scale_graph_pos(G, self.scale_graph_pos_factor * 1.15)
 
     @override
     @classmethod
@@ -113,10 +113,10 @@ class FontPosSim(sn.display.SimulationWithChangingWidthConfig):
     def property_setter(self, drawable: DrawableGraph) -> None:
         G = drawable.drawing_graph
         if self.fontsize:
-            G.graph["node"]["fontsize"] = self.fontsize
-            G.graph["edge"]["fontsize"] = self.fontsize
+            G.graph["node"]["fontsize"] = self.fontsize * 0.8
+            G.graph["edge"]["fontsize"] = self.fontsize * 0.8
         if self.scale_graph_pos_factor:
-            scale_graph_pos(G, self.scale_graph_pos_factor)
+            scale_graph_pos(G, self.scale_graph_pos_factor * 1.15)
 
     @override
     @classmethod
@@ -249,10 +249,10 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "triangular", "n_cols": 1, "n_rows": 5}
         )
         img = nw_triangular_single.resource_network.plot(
-            scale=1.4,
+            scale=1.6,
             prop_setter=FontPos(
-                fontsize=14,
-                scale_graph_pos_factor=0.8,
+                fontsize=16,
+                scale_graph_pos_factor=0.7,
             ),
         )
         write_to("network_types_example_sym/triangular_single.svg", img.data)
@@ -299,7 +299,7 @@ def create_all_images(images_folder: Path) -> None:
         nw = build_typical({"grid_type": "triangular", "n_cols": 5, "n_rows": 2})
         qn = sn.quotient_sponge_network_on_cylinder(nw)
 
-        img = qn.quotient_network.plot(scale=1.2, prop_setter=FontPos(fontsize=14))
+        img = qn.quotient_network.plot(scale=1.5, prop_setter=FontPos(fontsize=12))
         write_to("cylinder_triangular_2/plot.svg", img.data)
 
     def gen_11() -> None:
@@ -367,18 +367,18 @@ def create_all_images(images_folder: Path) -> None:
 
     do_multiple(
         # gen_1,
-        gen_2,
+        # gen_2,
         # gen_3,
         # gen_4,
         # gen_5,
         # gen_6,
-        # gen_7,
+        gen_7,
         # gen_8,
         # gen_9,
         # gen_10,
         # gen_11,
         # gen_12,
-        gen_13,
+        # gen_13,
     )()
 
 

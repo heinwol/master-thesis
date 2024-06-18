@@ -15,7 +15,7 @@
 
 #let generated_image(subpath) = {
   // assert(type(subpath) == str)
-  (..args) => image("../assets/converted/" + subpath + ".png", ..args)
+  (..args) => image("../assets/generated/" + subpath + ".svg", ..args)
 }
 
 #let image_by_hand(subpath) = {
