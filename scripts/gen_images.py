@@ -150,7 +150,7 @@ def create_all_images(images_folder: Path) -> None:
         img1 = basic_network.plot(
             scale=1.0,
             prop_setter=FontPos(
-                fontsize=16,
+                fontsize=17,
                 scale_graph_pos_factor=0.4,
             ),
         )
@@ -162,7 +162,7 @@ def create_all_images(images_folder: Path) -> None:
             max_node_width=0.6,
             scale=1.0,
             prop_setter=FontPosSim(
-                fontsize=14,
+                fontsize=15,
                 scale_graph_pos_factor=0.9,
             ),
         )[0]
@@ -172,20 +172,20 @@ def create_all_images(images_folder: Path) -> None:
         sim = stop_network.run_simulation([4, 4, 0, 0], n_iters=10)
         imgs = stop_network.plot_with_states(
             sim.sliced[0, -1],
-            prop_setter=FontPosSim(fontsize=11, scale_graph_pos_factor=0.9),
+            prop_setter=FontPosSim(fontsize=13, scale_graph_pos_factor=0.9),
         )
         write_to("stop_network/sim1.svg", imgs[0].data)
         write_to("stop_network/sim2.svg", imgs[-1].data)
 
     def gen_3() -> None:
         img = some_sponge_network.resource_network.plot(
-            scale=1.5, prop_setter=FontPos(fontsize=15)
+            scale=1.5, prop_setter=FontPos(fontsize=15.5)
         )
         write_to("some_sponge_network/plot.svg", img.data)
 
     def gen_4() -> None:
         img = some_sponge_network_without_sinks.resource_network.plot(
-            scale=1.5, prop_setter=FontPos(fontsize=15)
+            scale=1.5, prop_setter=FontPos(fontsize=15.5)
         )
         write_to("some_sponge_network_without_sinks/plot.svg", img.data)
 
@@ -212,9 +212,9 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "hexagonal", "n_cols": 4, "n_rows": 2}
         )
         img = nw_hexagonal.resource_network.plot(
-            scale=1.6,
+            scale=1.5,
             prop_setter=FontPos(
-                fontsize=17,
+                fontsize=18,
                 scale_graph_pos_factor=0.8,
             ),
         )
@@ -237,9 +237,9 @@ def create_all_images(images_folder: Path) -> None:
             {"grid_type": "hexagonal", "n_cols": 3, "n_rows": 2}
         )
         img = nw_hexagonal.resource_network.plot(
-            scale=1.4,
+            scale=1.5,
             prop_setter=FontPos(
-                fontsize=14,
+                fontsize=14.5,
                 scale_graph_pos_factor=0.8,
             ),
         )
@@ -299,7 +299,7 @@ def create_all_images(images_folder: Path) -> None:
         nw = build_typical({"grid_type": "triangular", "n_cols": 5, "n_rows": 2})
         qn = sn.quotient_sponge_network_on_cylinder(nw)
 
-        img = qn.quotient_network.plot(scale=1.2, prop_setter=FontPos(fontsize=14))
+        img = qn.quotient_network.plot(scale=1.35, prop_setter=FontPos(fontsize=14))
         write_to("cylinder_triangular_2/plot.svg", img.data)
 
     def gen_11() -> None:
@@ -351,7 +351,7 @@ def create_all_images(images_folder: Path) -> None:
                 "weights_down_up": 1,
                 "generate_sinks": True,
             },
-            visual_sink_edge_length=0.7,
+            visual_sink_edge_length=1,
         )
 
         qn = sn.quotient_sponge_network_on_cylinder(nw)
@@ -360,14 +360,14 @@ def create_all_images(images_folder: Path) -> None:
         imgs = qn.quotient_network.plot_with_states(
             sim_,
             scale=1.4,
-            prop_setter=FontPosSim(fontsize=17, scale_graph_pos_factor=0.8),
+            prop_setter=FontPosSim(fontsize=13.5, scale_graph_pos_factor=0.7),
         )
         write_to("sponge_symmetrical_2_sim/1.svg", imgs[0].data)
         write_to("sponge_symmetrical_2_sim/2.svg", imgs[1].data)
 
     do_multiple(
-        # gen_1,
-        gen_2,
+        gen_1,
+        # gen_2,
         # gen_3,
         # gen_4,
         # gen_5,
@@ -378,7 +378,7 @@ def create_all_images(images_folder: Path) -> None:
         # gen_10,
         # gen_11,
         # gen_12,
-        gen_13,
+        # gen_13,
     )()
 
 

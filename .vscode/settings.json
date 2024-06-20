@@ -5,7 +5,8 @@
         ".direnv",
         "result",
         ".nix-env",
-        "literature/schema"
+        "literature/schema",
+        "predator*"
     ],
     "cSpell.enabled": true,
     "cSpell.language": "ru,en",
@@ -51,6 +52,7 @@
         "numpy",
         "pagebreak",
         "parbreak",
+        "repr",
         "Riordan",
         "RSCI",
         "Scopus",
