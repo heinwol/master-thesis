@@ -1,4 +1,17 @@
-#import "./template.typ": thmrules, template, definition, theorem, proof, claim, code, lemma, corollary, remark, turn-on-first-line-indentation as fli, indent
+#import "./template.typ": (
+  thmrules,
+  template,
+  definition,
+  theorem,
+  proof,
+  claim,
+  code,
+  lemma,
+  corollary,
+  remark,
+  turn-on-first-line-indentation as fli,
+  indent,
+)
 
 #let sp = h(0.5em)
 
@@ -23,7 +36,7 @@
   (..args) => image("../assets/images/" + subpath, ..args)
 }
 
-#let varnothing = $text(font: "Fira Sans", nothing)$
+#let varnothing = $text(font: "Arial", nothing)$
 
 #let comment(cnt) = text(fill: red, cnt)
 

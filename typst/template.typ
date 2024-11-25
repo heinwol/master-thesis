@@ -1,4 +1,5 @@
-#import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
+// #import "./typst-packages/packages/preview/ctheorems/1.1.2/lib.typ": *
+#import "@preview/ctheorems:1.1.3": *
 #import "@preview/sourcerer:0.2.1": code as code_
 
 // indentation hack from https://github.com/typst/typst/issues/311#issuecomment-2104447655
